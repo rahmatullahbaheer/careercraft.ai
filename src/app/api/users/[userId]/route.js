@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import startDB from "@/lib/db";
 import User from "@/db/schemas/User";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../auth/[...nextauth]/route";
+import { authOptions } from "../../../../lib/auth";
 const ObjectId = require("mongodb").ObjectId;
 
 export const GET = async (req, { params }) => {

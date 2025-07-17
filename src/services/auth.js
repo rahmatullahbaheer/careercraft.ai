@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL_LOCAL = "http://192.168.18.25:3000/api";
+const API_URL_LOCAL = "http://localhost:3000/api";
 // const API_URL_LIVE = process.env.NEXT_PUBLIC_BASE_URL;
 
 const authApi = axios.create({

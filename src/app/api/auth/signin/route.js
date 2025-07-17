@@ -1,6 +1,6 @@
 // Sign-in API endpoint
 import { NextResponse } from "next/server";
-import { getUserByEmail } from "../../../../db/schemas/User";
+import { getUserByEmail } from "../../../../db/schemas/user-helpers";
 import { compare } from "bcryptjs";
 
 export async function POST(req) {

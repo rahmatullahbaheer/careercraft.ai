@@ -4,7 +4,8 @@ import "./globals.css";
 import Providers from "./providers";
 import ReduxProvider from "./ReduxProvider.jsx";
 import UserDataProvider from "./UserDataProvider";
-
+import { TourContextProvider } from "@/context/TourContext";
+import { AppContextsProvider } from "@/context/AppContext";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -27,11 +28,15 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+         <TourContextProvider> 
+            <AppContextsProvider>
         <ReduxProvider>
           <Providers>
           <UserDataProvider />
             {children}</Providers>
         </ReduxProvider>
+         </AppContextsProvider>
+         </TourContextProvider>
       </body>
     </html>
   );

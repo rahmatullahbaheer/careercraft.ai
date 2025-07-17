@@ -1,9 +1,11 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
-
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 import Sidebar from "./components/layout/SideBar";
 import NavBarForAdmin from "./components/layout/NavBarForAdmin";
 import ProfileCreationLayer from "../(auth)/components/dashboard/ProfileCreationLayer";
+import { Suspense } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,25 +28,27 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-black`}
       >
-        <ProfileCreationLayer>
-          <div className="flex h-screen overflow-hidden">
-            {/* Sidebar */}
-            <div className="w-64 shrink-0 z-50">
-              <Sidebar />
-            </div>
+        <Suspense fallback={<div>Loading...</div>}>
+          <ProfileCreationLayer>
+            <div className="flex h-screen overflow-hidden">
+              {/* Sidebar */}
+              <div className="w-64 shrink-0 z-50">
+                <Sidebar />
+              </div>
 
-            {/* Main Area */}
-            <div className="flex flex-col flex-1 overflow-auto">
-              {/* Top Navbar */}
-              <NavBarForAdmin />
+              {/* Main Area */}
+              <div className="flex flex-col flex-1 overflow-auto">
+                {/* Top Navbar */}
+                <NavBarForAdmin />
 
-              {/* Page content */}
-              <main className="p-6 overflow-y-auto h-full mt-14">
-                {children}
-              </main>
+                {/* Page content */}
+                <main className="p-6 overflow-y-auto h-full mt-14">
+                  {children}
+                </main>
+              </div>
             </div>
-          </div>
-        </ProfileCreationLayer>
+          </ProfileCreationLayer>
+        </Suspense>
       </body>
     </html>
   );

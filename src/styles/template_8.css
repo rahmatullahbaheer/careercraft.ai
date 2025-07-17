@@ -1,0 +1,15 @@
+.contact_8_ul {
+  @apply flex flex-col justify-between w-full gap-3 pl-0 mt-8 mb-4 text-xs break-all md:flex-col;
+}
+.contact_8_li {
+  @apply flex flex-row items-start justify-start gap-1 hover:shadow-md hover:bg-gray-100;
+}
+.skill_8_heading {
+  @apply text-base font-semibold my-1 flex justify-center text-center uppercase border-2 border-transparent hover:border-dashed hover:border-gray-500 items-center gap-2;
+}
+.skill_8_ul {
+  @apply !list-disc border-2 border-transparent hover:border-dashed hover:border-gray-500  pl-0 flex flex-row  flex-wrap gap-1 h-[20%]  mb-4 text-xs;
+}
+.skill_8_li {
+  @apply !list-disc hover:shadow-md w-[30%] xs:w-[45%] xs:pr-4 md:w-[30%] hover:cursor-move parent hover:border-dashed hover:border-gray-500 hover:border  hover:bg-gray-100 border-transparent border-[1px] flex  items-center;
+}

@@ -130,10 +130,10 @@ const SignIn = () => {
                     // Redirect based on user role
                     if (session.user.role === "admin") {
                       console.log("Redirecting admin to dashboard");
-                      router.push("/dashboard");
+                      router.push("/admin-dashboard");
                     } else {
                       console.log("Redirecting user to home");
-                      router.push("/"); // or wherever users should go after signin
+                      router.push("/dashboard"); // or wherever users should go after signin
                     }
                   } else {
                     console.error(
@@ -217,7 +217,7 @@ const SignIn = () => {
 
                   <div className="text-sm">
                     <Link
-                      href="/forgot-password"
+                      href="/otp-email"
                       className="font-medium text-purple-600 hover:text-purple-500"
                     >
                       Forgot Password ?
@@ -253,7 +253,7 @@ const SignIn = () => {
           </Formik>
 
           {/* Session Debug Info (for development) */}
-          {process.env.NODE_ENV === "development" && (
+          {/* {process.env.NODE_ENV === "development" && (
             <div className="mt-4 p-4 bg-gray-100 rounded-md">
               <h4 className="text-sm font-medium text-gray-700 mb-2">
                 Session Debug Info:
@@ -265,7 +265,7 @@ const SignIn = () => {
                 </pre>
               )}
             </div>
-          )}
+          )} */}
         </div>
       </div>
     </div>

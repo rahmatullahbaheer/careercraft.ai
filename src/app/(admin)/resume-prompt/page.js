@@ -1,10 +1,10 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import PromptBox from "../components/utils/PromptBox";
 import { API_ENDPOINT } from "../../../services/api-endpoints";
 import { getAPI, postAPI } from "../../../services/index";
 
-const Page = () => {
+const ResumePromptContent = () => {
   const [promptsLoading, setPromptsLoading] = useState(true);
   const [prompts, setPrompts] = useState([]);
   const [updating, setUpdating] = useState("");
@@ -13,7 +13,7 @@ const Page = () => {
     const fetchPrompts = async () => {
       try {
         setPromptsLoading(true);
-        const res = await getAPI(API_ENDPOINT.GET_RESUME_PROMPT);
+        const res = await getAPI("/prompts?type=resume");
 
         if (res?.status === 200) {
           setPromptsLoading(false);
@@ -119,6 +119,14 @@ const Page = () => {
         </div>
       )}
     </div>
+  );
+};
+
+const Page = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ResumePromptContent />
+    </Suspense>
   );
 };
 

@@ -1,0 +1,150 @@
+.fullName_temp_2 {
+  @apply text-4xl font-bold  border-2 border-transparent xs:text-2xl md:text-4xl lg:text-4xl hover:shadow-md hover:bg-gray-100 hover:border-dashed hover:border-gray-500;
+}
+.jobTitle_temp_2 {
+  @apply text-lg border-2 border-transparent xs:text-xs md:text-2xl lg:text-2xl hover:shadow-md hover:bg-gray-100 hover:border-dashed hover:border-gray-500;
+}
+
+.contact_ul {
+  @apply flex flex-row items-center justify-around px-4 py-2 bg-gray-300 xs:flex-col xs:gap-2 md:flex-row rounded-xl;
+}
+
+.contact_li {
+  @apply flex flex-row items-center justify-start gap-1 text-xs hover:shadow-md text-gray-950 hover:bg-gray-100 xs:w-[45%] lg:w-[25%];
+}
+
+.summary_heading {
+  @apply flex items-center gap-2 text-base font-semibold uppercase border-2 border-transparent hover:border-dashed hover:border-gray-500;
+}
+
+.summary_text {
+  @apply text-xs text-justify border-2 border-transparent hover:shadow-md hover:border-gray-500 hover:border-dashed;
+}
+
+.skill_heading,
+.experienceHeading_temp_2 {
+  @apply text-base font-semibold uppercase border-2 my-1 border-transparent hover:border-dashed hover:border-gray-500 flex items-center gap-2;
+}
+
+.skill_ul {
+  @apply flex flex-row flex-wrap gap-1 text-xs border-2 border-transparent hover:border-dashed hover:border-gray-500;
+}
+
+.skill_li {
+  @apply px-4 py-2 bg-gray-300 border-transparent border-[1px] rounded-full hover:shadow-md hover:cursor-move  hover:border-dashed hover:border-gray-500 hover:border  hover:bg-gray-100 flex justify-between items-center;
+}
+
+.skill_New {
+  @apply w-full rounded-2xl  border-[1px] border-black flex h-[38px];
+}
+
+.skill_input {
+  @apply w-full px-2 bg-white outline-none rounded-2xl;
+}
+
+.skill-Save {
+  @apply px-2 text-white uppercase bg-green-500 h-9 rounded-r-2xl;
+}
+
+.skill-cancel {
+  @apply px-2 py-1 text-white bg-red-500 rounded-full;
+}
+
+.achievement_div {
+  @apply border-2 border-transparent hover:border-dashed hover:border-gray-500 hover:cursor-move hover:border-2;
+}
+
+.achievement_h1 {
+  @apply text-base font-bold leading-8 hover:shadow-md hover:cursor-text hover:bg-gray-100;
+}
+
+.achievement_h2 {
+  @apply flex gap-1 text-xs font-semibold leading-relaxed hover:cursor-default;
+}
+
+.save_btn {
+  @apply text-white bg-green-500 rounded-md   h-9 px-[14px];
+}
+
+.delete_btn {
+  @apply py-1 text-white bg-red-500 rounded-md  px-[14px];
+}
+
+.publication_h3 {
+  @apply flex items-center gap-2 text-xs font-semibold uppercase border-2 border-transparent md:my-1 md:text-base hover:border-dashed hover:border-gray-500;
+}
+.publication_div {
+  @apply border-2 border-transparent md:w-full hover:border-dashed hover:border-gray-500 hover:cursor-move hover:border-2;
+}
+.publication_h2 {
+  @apply text-base font-bold leading-8 hover:shadow-md hover:cursor-text hover:bg-gray-100;
+}
+.publication_h2_1 {
+  @apply flex flex-wrap gap-1 text-xs font-semibold leading-relaxed hover:cursor-default;
+}
+.publication_div_input {
+  @apply flex flex-wrap w-full gap-1 mt-4;
+}
+.publication_new_input {
+  @apply w-full py-[4px] border-2 rounded-md   bg-transparent;
+}
+.publication_delete {
+  @apply w-4 h-4 absolute right-0.5 top-0.5 text-red-500 cursor-pointer;
+}
+.publication_delete1 {
+  @apply hover:border-dashed list-disc hover:cursor-move hover:border-gray-500 border-[1px] hover:border-[1px] border-transparent hover:shadow-md relative hover:bg-gray-100;
+}
+.publication_line {
+  @apply hidden text-xs font-medium text-gray-500 uppercase cursor-pointer group-hover:block;
+}
+.publication_date {
+  @apply hover:shadow-md hover:bg-gray-100;
+}
+.span1 {
+  @apply w-full h-0 border-[1px] !border-gray-500 mt-3;
+}
+.span2 {
+  @apply w-full h-0 border-[1px] !border-gray-500 mt-0;
+}
+.publication_ul {
+  @apply flex flex-col gap-1 pl-0 text-xs;
+}
+.publication_li {
+  @apply flex flex-row items-center justify-center h-8 hover:bg-slate-200;
+}
+.reference_ul {
+  @apply flex flex-wrap w-full gap-3 pl-0 md:flex-row lg:flex-row;
+}
+.reference_li {
+  @apply w-[45%] md:w-[30%] m-2 xs:m-0 relative border-transparent border-2 hover:border-dashed hover:border-gray-500;
+}
+.language_div {
+  @apply border-2 border-transparent md:w-full flex items-center gap-2 hover:cursor-move;
+}
+.education_h3 {
+  @apply flex flex-row my-1 items-center gap-2 text-base font-semibold uppercase border-2 border-transparent hover:border-dashed hover:border-gray-500;
+}
+.education_ul {
+  @apply grid grid-cols-3 gap-2 xs:grid-cols-2 md:grid-cols-3 !mt-4;
+}
+.education_div {
+  @apply relative px-4 py-2  border-2 border-transparent rounded-md  hover:border-dashed hover:border-gray-500;
+}
+.education_bg {
+  @apply bg-gray-300;
+}
+.education_li {
+  @apply flex items-center justify-between text-base font-semibold uppercase hover:shadow-md hover:cursor-move  hover:border-2 hover:bg-gray-100;
+}
+.education_delete {
+  @apply absolute z-10 hidden w-4 h-4 cursor-pointer group-hover:block right-2 top-2;
+}
+.education_li_2 {
+  @apply text-xs font-semibold hover:shadow-md hover:bg-gray-100;
+}
+.education_li_italic {
+  @apply text-xs italic text-gray-800 hover:shadow-md hover:bg-gray-100;
+}
+.education_li_date {
+  @apply flex mb-4 text-xs italic text-gray-700;
+}

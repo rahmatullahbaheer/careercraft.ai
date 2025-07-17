@@ -2,7 +2,7 @@ import User from "@/db/schemas/User";
 import startDB from "@/lib/db";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
-import { authOptions } from "../../auth/[...nextauth]/route";
+import { authOptions } from "../../../../lib/auth";
 
 export async function POST(req) {
   try {

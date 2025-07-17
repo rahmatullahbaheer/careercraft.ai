@@ -17,14 +17,8 @@ const selectionMenu = [
   { label: "Dashboards", icon: LayoutDashboard, path: "/dashboard" },
   { label: "Resume Prompt", icon: FileText, path: "/resume-prompt" },
   { label: "Linkedin Prompt", icon: Users, path: "/linkedin" },
-  { label: "Billing Details", icon: DollarSign, path: "/billing" },
-  { label: "My Resume", icon: DollarSign, path: "/my-resume" },
-  {
-    label: "Linkedin Optimizer",
-    icon: DollarSign,
-    path: "/linkedinoptimizer",
-  },
-  { label: "Profile", icon: User, path: "/profile" },
+  // { label: "Profile", icon: User, path: "/profile" },
+  { label: "Packages", icon: User, path: "/packages" },
   { label: "Logout", icon: LogOut, path: "/logout" },
 ];
 
