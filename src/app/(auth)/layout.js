@@ -2,7 +2,6 @@
 import { useSession } from "next-auth/react";
 import { Geist, Inter } from "next/font/google";
 import { redirect } from "next/navigation";
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
