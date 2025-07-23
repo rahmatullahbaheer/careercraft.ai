@@ -19,6 +19,7 @@ function page() {
     status: "active",
     description: "",
     features: [],
+    credits: "",
   });
   const [selectedPackages, setSelectedPackages] = useState([]);
 
@@ -83,6 +84,7 @@ function page() {
       status: "active",
       description: "",
       features: [],
+      credits: "",
     });
     setShowModal(true);
   };
@@ -97,6 +99,7 @@ function page() {
       status: pkg.status,
       description: pkg.description || "",
       features: pkg.features || [],
+      credits: pkg.credits?.toString() || "0",
     });
     setShowModal(true);
   };
@@ -112,6 +115,7 @@ function page() {
       status: "active",
       description: "",
       features: [],
+      credits: "",
     });
   };
 
@@ -226,6 +230,14 @@ function page() {
       return;
     }
 
+    if (
+      formData.credits &&
+      (isNaN(formData.credits) || parseFloat(formData.credits) < 0)
+    ) {
+      alert("Please enter a valid credits amount");
+      return;
+    }
+
     try {
       const url = editingPackage
         ? `/api/packages/${editingPackage._id}`
@@ -239,6 +251,7 @@ function page() {
         status: formData.status,
         description: formData.description.trim(),
         features: formData.features,
+        credits: formData.credits ? parseFloat(formData.credits) : 0,
       };
 
       const response = await fetch(url, {
@@ -438,6 +451,7 @@ function page() {
               <th className="px-4 py-3">Name</th>
               <th className="px-4 py-3">Stripe Price Line</th>
               <th className="px-4 py-3">Price</th>
+              <th className="px-4 py-3">Credits</th>
               <th className="px-4 py-3">Status</th>
               <th className="px-4 py-3">Description</th>
               <th className="px-4 py-3">Actions</th>
@@ -446,7 +460,7 @@ function page() {
           <tbody className="text-gray-700">
             {paginatedPackages.length === 0 ? (
               <tr>
-                <td colSpan="8" className="px-4 py-8 text-center text-gray-500">
+                <td colSpan="9" className="px-4 py-8 text-center text-gray-500">
                   {loading ? "Loading packages..." : "No packages found"}
                 </td>
               </tr>
@@ -465,10 +479,11 @@ function page() {
                     {(currentPage - 1) * entriesPerPage + index + 1}
                   </td>
                   <td className="px-4 py-3 capitalize">{pkg.name}</td>
-                  <td className="px-4 py-3 text-sm text-gray-600">
-                    {pkg.stripePriceLine}
-                  </td>
+                  <td className="px-4 py-3">{pkg.stripePriceLine}</td>
                   <td className="px-4 py-3">$ {pkg.price}</td>
+                  <td className="px-4 py-3 font-medium text-blue-600">
+                    {pkg.credits || 0}
+                  </td>
                   <td className="px-4 py-3">
                     <span
                       className={`text-white text-xs px-2 py-1 rounded-full ${
@@ -673,6 +688,26 @@ function page() {
                   step="0.01"
                   required
                 />
+              </div>
+
+              {/* Credits */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Credits
+                </label>
+                <input
+                  type="number"
+                  name="credits"
+                  value={formData.credits}
+                  onChange={handleInputChange}
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none"
+                  placeholder="Enter number of credits (e.g., 100)"
+                  min="0"
+                  step="1"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  Number of credits included with this package
+                </p>
               </div>
 
               {/* Status */}

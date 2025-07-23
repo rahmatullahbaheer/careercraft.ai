@@ -32,6 +32,12 @@ const PackageSchema = new Schema(
       type: [String],
       default: [],
     },
+    credits: {
+      type: Number,
+      required: true,
+      min: 0,
+      default: 0,
+    },
   },
   {
     timestamps: true,

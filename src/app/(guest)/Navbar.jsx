@@ -82,14 +82,14 @@ function Navbar() {
 
         <div className="flex items-center gap-4">
           <Link
-            href="#contact"
+            href="/signin"
             className="hidden lg:flex items-center gap-2 px-5 py-2 border
             rounded font-ovo  text-white text-lg bg-gradient-to-r from-purple-500 to-purple-400 hover:from-purple-800 hover:to-purple-700"
           >
             Login
           </Link>
           <Link
-            href="#contact"
+            href="/signup"
             className="hidden lg:flex group items-center gap-2 px-5 py-2 
             border rounded font-ovo text-white text-lg bg-gradient-to-r from-purple-500 to-purple-400 hover:from-purple-800 hover:to-purple-700"
           >
@@ -164,7 +164,7 @@ function Navbar() {
           </li>
 
           <Link
-            href="#contact"
+            href="/signin"
             className="transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg 
              bg-gradient-to-r from-purple-500 to-purple-400 text-white font-bold px-6 py-2 text-center rounded font-ovo"
           >
@@ -172,7 +172,7 @@ function Navbar() {
           </Link>
 
           <Link
-            href="#contact"
+            href="/signup"
             className="transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg 
              bg-gradient-to-r from-purple-500 to-purple-400 text-white font-bold py-2 text-center rounded font-ovo"
           >

@@ -34,6 +34,8 @@ const UserSchema = new Schema(
     },
     linkedin: {
       type: String,
+
+      sparse: true, // <- this is key
     },
 
     profileImage: String,
@@ -132,6 +134,37 @@ const UserSchema = new Schema(
       ref: "CreditPackage",
     },
     redeemedCoupons: [],
+    // Payment and subscription related fields
+    userPackage: {
+      type: String,
+      default: "Free Plan",
+    },
+    subscriptionStatus: {
+      type: String,
+      enum: ["active", "inactive", "cancelled", "expired"],
+      default: "inactive",
+    },
+    lastPaymentDate: {
+      type: Date,
+    },
+    paymentHistory: [
+      {
+        paymentIntentId: String,
+        packageId: String,
+        packageName: String,
+        creditsAdded: Number,
+        paymentDate: {
+          type: Date,
+          default: Date.now,
+        },
+        amount: Number, // Amount in cents
+        status: {
+          type: String,
+          enum: ["completed", "pending", "failed", "refunded"],
+          default: "completed",
+        },
+      },
+    ],
     tours: {
       resumeBuilder: Boolean,
       coverLetter: Boolean,

@@ -56,8 +56,15 @@ export async function PUT(req, { params }) {
 
     const { packageId } = params;
     const body = await req.json();
-    const { name, stripePriceLine, price, description, features, status } =
-      body;
+    const {
+      name,
+      stripePriceLine,
+      price,
+      description,
+      features,
+      status,
+      credits,
+    } = body;
 
     // Validate ObjectId
     if (!mongoose.Types.ObjectId.isValid(packageId)) {
@@ -110,6 +117,16 @@ export async function PUT(req, { params }) {
       );
     }
 
+    if (credits !== undefined && credits < 0) {
+      return NextResponse.json(
+        {
+          result: "Credits must be a positive number",
+          success: false,
+        },
+        { status: 400 }
+      );
+    }
+
     // Prepare update data
     const updateData = {};
     if (name !== undefined) updateData.name = name.trim();
@@ -119,6 +136,7 @@ export async function PUT(req, { params }) {
     if (description !== undefined) updateData.description = description.trim();
     if (features !== undefined) updateData.features = features;
     if (status !== undefined) updateData.status = status;
+    if (credits !== undefined) updateData.credits = Number(credits);
 
     const updatedPackage = await Package.findByIdAndUpdate(
       packageId,

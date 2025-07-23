@@ -13,7 +13,7 @@ export async function verifyCaptcha(token) {
   }
 }
 export async function getPackageID() {
-  return process.env.FREE_PACKAGE_ID;
+  return "665431ab7dc761f8ca6c1c19";
 }
 export async function getStripeKey() {
   return process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;

@@ -6,7 +6,7 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
 import Image from "next/image";
 import Link from "next/link";
 import { signIn, getSession, useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 const SignInSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
@@ -26,12 +26,12 @@ const SignIn = () => {
       console.log("User already authenticated:", session);
       // Redirect based on user role
       if (session.user.role === "admin") {
-        router.push("/admin-dashboard");
+        redirect("/admin-dashboard");
       }
       if (session.user.role === "user") {
-        router.push("/dashboard");
+        redirect("/dashboard");
       } else {
-        router.push("/"); // or wherever users should go
+        redirect("/"); // or wherever users should go
       }
     }
   }, [status, session, router]);
@@ -130,10 +130,10 @@ const SignIn = () => {
                     // Redirect based on user role
                     if (session.user.role === "admin") {
                       console.log("Redirecting admin to dashboard");
-                      router.push("/admin-dashboard");
+                      redirect("/admin-dashboard");
                     } else {
                       console.log("Redirecting user to home");
-                      router.push("/dashboard"); // or wherever users should go after signin
+                      redirect("/dashboard"); // or wherever users should go after signin
                     }
                   } else {
                     console.error(

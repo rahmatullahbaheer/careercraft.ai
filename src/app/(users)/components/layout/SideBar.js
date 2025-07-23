@@ -7,11 +7,12 @@ import Image from "next/image";
 import {
   LayoutDashboard,
   FileText,
-  Users,
+  Linkedin,
   DollarSign,
   User,
   LogOut,
-  linkedin,
+  CreditCard,
+  Mail,
 } from "lucide-react";
 
 const selectionMenu = [
@@ -19,15 +20,12 @@ const selectionMenu = [
   { label: "My Resume", icon: FileText, path: "/resume-builder" },
   {
     label: "Linkedin Optimizer",
-    icon: Users,
+    icon: Linkedin,
     path: "/linkedinoptimizer",
   },
-  { label: "Billing Details", icon: DollarSign, path: "/billing" },
+  { label: "Billing Details", icon: CreditCard, path: "/billing" },
   { label: "Profile", icon: User, path: "/profile" },
   { label: "Logout", icon: LogOut, path: "/logout" },
-  // { label: "Resume Prompt", icon: FileText, path: "/resume-prompt" },
-  // { label: "Linkedin Prompt", icon: Users, path: "/linkedin" },
-  // { label: "Packages", icon: User, path: "/packages" },
 ];
 
 export default function Sidebar() {
@@ -46,6 +44,10 @@ export default function Sidebar() {
       // Clear any stored data (like PDF text or other session data)
       if (typeof window !== "undefined") {
         localStorage.removeItem("pdfText");
+        localStorage.removeItem("image");
+        localStorage.removeItem("profileImage");
+        localStorage.removeItem("userImage");
+        localStorage.removeItem("uploadedImage");
         // You can add more localStorage items to clear if needed
         // localStorage.clear(); // Use this to clear all localStorage data
       }

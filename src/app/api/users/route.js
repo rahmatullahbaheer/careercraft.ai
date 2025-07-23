@@ -4,28 +4,45 @@ import { NextResponse } from "next/server";
 
 export async function GET(req) {
   const url = new URL(req.url);
-  const limit = Number(url.searchParams.get("limit"));
-  const page = Number(url.searchParams.get("page"));
+  const limit = Number(url.searchParams.get("limit")) || 10;
+  const page = Number(url.searchParams.get("page")) || 1;
   const skip = (page - 1) * limit;
+
   try {
     await startDB();
 
-    const userDetails = await User.find({ role: { $ne: "admin" } })
+    // Filter to exclude admin users
+    const filter = { role: { $ne: "admin" } };
+
+    // Get users with pagination
+    const userDetails = await User.find(filter)
       .sort({ createdAt: -1 })
       .limit(limit)
-      .skip(skip);
-    const total = await User.count();
+      .skip(skip)
+      .select(
+        "firstName lastName email phone registeredPhone role isActive createdAt"
+      );
+
+    // Get total count of non-admin users only
+    const total = await User.countDocuments(filter);
 
     return NextResponse.json({
       result: userDetails,
       total: total,
-
+      currentPage: page,
+      totalPages: Math.ceil(total / limit),
+      limit: limit,
       success: true,
     });
-  } catch {
-    return NextResponse.json({
-      result: "Something Went Wrong",
-      success: false,
-    });
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    return NextResponse.json(
+      {
+        result: "Something Went Wrong",
+        error: error.message,
+        success: false,
+      },
+      { status: 500 }
+    );
   }
 }

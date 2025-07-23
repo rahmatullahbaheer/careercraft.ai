@@ -52,8 +52,15 @@ export async function POST(req) {
     await startDB();
 
     const body = await req.json();
-    const { name, stripePriceLine, price, description, features, status } =
-      body;
+    const {
+      name,
+      stripePriceLine,
+      price,
+      description,
+      features,
+      status,
+      credits,
+    } = body;
 
     // Validation
     if (!name || !stripePriceLine || price === undefined || price === null) {
@@ -70,6 +77,16 @@ export async function POST(req) {
       return NextResponse.json(
         {
           result: "Price must be a positive number",
+          success: false,
+        },
+        { status: 400 }
+      );
+    }
+
+    if (credits !== undefined && credits < 0) {
+      return NextResponse.json(
+        {
+          result: "Credits must be a positive number",
           success: false,
         },
         { status: 400 }
@@ -95,6 +112,7 @@ export async function POST(req) {
       description: description?.trim() || "",
       features: features || [],
       status: status || "active",
+      credits: credits !== undefined ? Number(credits) : 0,
     });
 
     const savedPackage = await newPackage.save();

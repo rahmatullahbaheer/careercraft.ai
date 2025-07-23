@@ -8,8 +8,9 @@ import {
   LayoutDashboard,
   FileText,
   Users,
-  DollarSign,
+  Package,
   User,
+  UserCircle,
   LogOut,
 } from "lucide-react";
 
@@ -17,8 +18,9 @@ const selectionMenu = [
   { label: "Dashboards", icon: LayoutDashboard, path: "/dashboard" },
   { label: "Resume Prompt", icon: FileText, path: "/resume-prompt" },
   { label: "Linkedin Prompt", icon: Users, path: "/linkedin" },
-  // { label: "Profile", icon: User, path: "/profile" },
-  { label: "Packages", icon: User, path: "/packages" },
+  { label: "Packages", icon: Package, path: "/packages" },
+  { label: "Users", icon: Users, path: "/users" },
+  { label: "Profile", icon: UserCircle, path: "/admin-profile" },
   { label: "Logout", icon: LogOut, path: "/logout" },
 ];
 

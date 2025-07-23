@@ -166,7 +166,7 @@ const page = () => {
                 Usage Statistics
               </h2>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div>
+                {/* <div>
                   <label className="text-sm font-semibold text-gray-900 block mb-1">
                     Generated Resumes
                   </label>
@@ -196,7 +196,7 @@ const page = () => {
                         "0 3px 6px rgba(0, 0, 0, 0.1), 3px 0 6px rgba(0, 0, 0, 0.05), -3px 0 6px rgba(0, 0, 0, 0.05)",
                     }}
                   />
-                </div>
+                </div> */}
 
                 <div>
                   <label className="text-sm font-semibold text-gray-900 block mb-1">

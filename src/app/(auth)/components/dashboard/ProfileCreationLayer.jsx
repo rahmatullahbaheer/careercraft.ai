@@ -1205,7 +1205,7 @@ const ProfileCreationLayer = ({ children }) => {
     return (
       <div className="flex flex-col items-center justify-center h-screen pt-30">
         {/* <h2 className="text-3xl font-bold text-center">Loading...</h2> */}
-        <div className="fixed top-0 left-0 w-full h-screen  bg-gradient-to-bl from-[#340e53] via-[#000533] to-[#010111]  text-white  z-[9999] flex flex-col justify-center items-center">
+        <div className="fixed top-0 left-0 w-full h-screen  bg-gradient-to-l from-violet-500 to-violet-300  text-white  z-[9999] flex flex-col justify-center items-center">
           <Image
             src="/logo.png"
             alt="careercraft Logo Icon"

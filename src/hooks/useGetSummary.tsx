@@ -77,12 +77,14 @@ const useGetSummary = (
 
           dispatch(setSummary(summaryTemp));
 
+          // Always save the resume when summary is generated
+          saveResumeToDB({
+            ...resumeData,
+            summary: summaryTemp,
+          });
+
           if (path !== "/resume-builder") {
             showSuccessToast("Generated Successfully");
-            saveResumeToDB({
-              ...resumeData,
-              summary: summaryTemp,
-            });
           }
         } else {
           setStreamedSummaryData(resumeData?.summary);

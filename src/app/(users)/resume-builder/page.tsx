@@ -141,7 +141,10 @@ const ResumeBuilder = () => {
       dispatch(setCertifications({ certifications: userData.certifications }));
       dispatch(setLanguages({ languages: userData.languages }));
 
-      dispatch(setId(""));
+      // Only clear ID if we don't have one already to avoid breaking saves
+      if (!resumeData.id) {
+        dispatch(setId(""));
+      }
       const basicInfoResponse = await getBasicInfo();
       if (basicInfoResponse.success) {
         await getSummary();
@@ -222,6 +225,12 @@ const ResumeBuilder = () => {
           education: userData?.education,
         };
         dispatch(setBasicInfo(basicObj));
+
+        // Save immediately after basic info is set to ensure we have a resume ID
+        setTimeout(() => {
+          saveResumeToDB();
+        }, 500);
+
         return { success: true }; // return success response
       } else {
         setShowConfettiRunning(false);
@@ -333,6 +342,11 @@ const ResumeBuilder = () => {
       dispatch(setState({ name: "resumeLoading", value: false }));
       setResumeGenerated(true);
       dispatch(setWorkExperience(temp));
+
+      // Ensure resume gets saved after work experience generation
+      setTimeout(() => {
+        saveResumeToDB();
+      }, 1000);
     }
     // });
   };
@@ -394,6 +408,43 @@ const ResumeBuilder = () => {
       saveResumeToDB();
     }
   }, [resumeData?.state?.resumeLoading]);
+
+  // Additional useEffect to ensure resume gets saved after generation
+  useEffect(() => {
+    if (
+      resumeGenerated &&
+      !resumeData.state.resumeLoading &&
+      (resumeData?.name || resumeData?.contact?.email || resumeData?.summary) &&
+      !outOfCredits
+    ) {
+      // Save the resume when generation is complete and we have some basic data
+      saveResumeToDB();
+    }
+  }, [
+    resumeGenerated,
+    resumeData.state.resumeLoading,
+    resumeData?.name,
+    resumeData?.contact?.email,
+    resumeData?.summary,
+    outOfCredits,
+  ]);
+
+  // Additional safeguard to save when loading state changes to false
+  useEffect(() => {
+    if (
+      !resumeData.state.resumeLoading &&
+      resumeGenerated &&
+      (resumeData?.name ||
+        resumeData?.contact?.email ||
+        resumeData?.summary ||
+        resumeData?.primarySkills?.length > 0)
+    ) {
+      // Ensure resume is saved when loading completes
+      setTimeout(() => {
+        saveResumeToDB();
+      }, 2000);
+    }
+  }, [resumeData.state.resumeLoading, resumeGenerated]);
 
   useEffect(() => {
     if (userData && userData?.email) {
@@ -524,7 +575,8 @@ const ResumeBuilder = () => {
           {resumeData &&
             (resumeData?.name ||
               resumeData?.contact?.email ||
-              resumeData?.summary) && (
+              resumeData?.summary) &&
+               (
               <>
                 <div
                   className={`my-10 ${
