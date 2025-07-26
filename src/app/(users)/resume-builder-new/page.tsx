@@ -3,6 +3,7 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import { useSession } from "next-auth/react";
 import ResumeTemplate1 from "@/components/dashboard/resume-templates/templates/template_1";
 import { useDispatch, useSelector } from "react-redux";
+import { WorkExperience } from "@/store/userDataSlice";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import {
@@ -47,6 +48,7 @@ import TemplateSlider from "@/components/dashboard/resume-templates/templateSlid
 import TourBot from "@/components/dashboard/TourBot";
 import { useTourContext } from "@/context/TourContext";
 import { useAppContext } from "@/context/AppContext";
+import { RootState } from "@/store/store";
 import { useSearchParams } from "next/navigation";
 
 const ResumeBuilder = () => {
@@ -84,9 +86,9 @@ const ResumeBuilder = () => {
   const { saveResumeToDB } = useSaveResumeToDB();
   // Redux
   const dispatch = useDispatch();
-  const resumeData = useSelector((state: any) => state.resume);
-  const userData = useSelector((state: any) => state.userData);
-  const creditLimits = useSelector((state: any) => state.creditLimits);
+  const resumeData = useSelector((state: RootState) => state.resume);
+  const userData = useSelector((state: RootState) => state.userData);
+  const creditLimits = useSelector((state: RootState) => state.creditLimits);
   const { getCreditLimitsIfNotExists } = useGetCreditLimits();
 
   useEffect(() => {
@@ -237,10 +239,12 @@ const ResumeBuilder = () => {
 
     if (userData.isFetched && userData.experience) {
       // remove ids from experiences
-      const experiences: any = userData.experience.map((item: any) => {
-        const { id, ...rest } = item;
-        return rest;
-      });
+      const experiences: any = userData.experience.map(
+        (item: WorkExperience) => {
+          const { id, ...rest } = item;
+          return rest;
+        }
+      );
       setStreamedJDData("");
       dispatch(setWorkExperience(""));
       let temp = "";
@@ -491,7 +495,7 @@ const ResumeBuilder = () => {
       )}
 
       <div className="w-full sm:w-full z-1000 ">
-        <div className="ml-0 px-[15px] lg:mb-[72px]">
+        <div className="ml-0 lg:ml-[234px] px-[15px] lg:mb-[72px]">
           <RecentResumeCard
             source="dashboard"
             componentRef={componentRef}
@@ -512,7 +516,7 @@ const ResumeBuilder = () => {
           <div className="fixed bottom-0 flex items-center justify-center">
             <Confetti active={confettingRunning} config={confettiConfig} />
           </div>
-          {/* {finished && (
+          {finished && (
             <div className="space-y-3 text-white">
               <div className="flex items-center justify-between gap-3 xs:flex-col md:flex-row">
                 <div className="flex items-center gaap-3">
@@ -617,7 +621,7 @@ const ResumeBuilder = () => {
                 </Swiper>
               </div>
             </div>
-          )} */}
+          )}
           {resumeData &&
             (resumeData?.name ||
               resumeData?.contact?.email ||
@@ -655,7 +659,7 @@ const ResumeBuilder = () => {
                             d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
                           />
                         </svg>
-                        Print Preview
+                        Download / Print Preview
                       </div>
                     </Link>
                   </div>
@@ -675,12 +679,12 @@ const ResumeBuilder = () => {
                 </div>
               </>
             )}
-          {/* {showPopup && (
+          {showPopup && (
             <div className="bg-[#18181B] text-red-600 p-2 px-8 rounded-xl absolute top-4 left-1/2 transform -translate-x-1/2">
-           
+              {/* Popup content here */}
               Credit Limit Reached !
             </div>
-          )} */}
+          )}
         </div>
       </div>
       {/* <TourBot config={outOfCredits ? tourBotConfig2 : tourBotConfig} /> */}

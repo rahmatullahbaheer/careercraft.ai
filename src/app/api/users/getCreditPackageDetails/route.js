@@ -2,7 +2,7 @@ import startDB from "@/lib/db";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import { authOptions } from "../../../../lib/auth";
-import CreditsPackage from "@/db/schemas/CreditsPackage";
+import Package from "@/db/schemas/Package";
 export const maxDuration = 300; // This function can run for a maximum of 5 seconds
 export const dynamic = "force-dynamic";
 
@@ -32,7 +32,7 @@ export async function GET(req) {
 
     await startDB();
 
-    const creditPackage = await CreditsPackage.findById(id);
+    const creditPackage = await Package.findById(id);
 
     if (!creditPackage) {
       return NextResponse.json(

@@ -2,6 +2,10 @@ import { NextResponse } from "next/server";
 import OpenAI from "openai";
 import Prompt from "@/db/schemas/Prompt";
 import startDB from "@/lib/db";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import { updateUserTotalCredits } from "@/helpers/updateUserTotalCredits";
+import { updateToolUsage } from "@/helpers/updateToolUsage";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -9,8 +13,36 @@ const openai = new OpenAI({
 
 export async function POST(req) {
   try {
+    const session = await getServerSession(authOptions);
+
+    if (!session?.user?.email) {
+      return NextResponse.json(
+        { error: "Authentication required" },
+        { status: 401 }
+      );
+    }
+
     const body = await req.json();
-    const { firstName, lastName, experience, skills } = body.userData;
+    const {
+      firstName,
+      lastName,
+      experience,
+      skills,
+      creditsUsed = 1,
+    } = body.userData || body;
+
+    // Check user credits before generation
+    const { getUserCreditsByEmail } = await import(
+      "@/helpers/getUserCreditsByEmail"
+    );
+    const userCredits = await getUserCreditsByEmail(session.user.email);
+
+    if (userCredits < creditsUsed) {
+      return NextResponse.json(
+        { error: "Insufficient credits", success: false },
+        { status: 429 }
+      );
+    }
 
     // Connect to database and fetch prompt
     await startDB();
@@ -54,6 +86,10 @@ Top Skills: ${skillList}`;
       temperature: 0.7,
       stream: true,
     });
+
+    // Update user credits and tool usage
+    await updateUserTotalCredits(session.user.email, creditsUsed);
+    await updateToolUsage("LinkedIn About Generator", creditsUsed);
 
     // Create a readable stream
     const encoder = new TextEncoder();

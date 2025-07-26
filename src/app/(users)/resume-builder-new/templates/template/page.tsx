@@ -16,10 +16,11 @@ import { chevronRight } from "@/helpers/iconsProvider";
 import TourBot from "@/components/dashboard/TourBot";
 import { useTourContext } from "@/context/TourContext";
 import { useAppContext } from "@/context/AppContext";
+import { RootState } from "@/store/store";
 
 const Template = () => {
   const params = useSearchParams();
-  const { resume } = useSelector((state: any) => state);
+  const { resume } = useSelector((state: RootState) => state);
   const { data: session } = useSession();
   const [refTop, setRefTop] = useState<number | null>(null);
   const [refLeft, setRefLeft] = useState<number | null>(null);
@@ -55,18 +56,19 @@ const Template = () => {
   }, [outOfCredits]);
   const fetchDefaultResume = async () => {
     try {
+      
       const res = await fetch(
         `/api/users/getOneByEmail?email=${session?.user?.email}`
       );
-
+  
       const { result, success } = await res.json();
-
+  
       if (success) {
         dispatch(setUserData(result));
         dispatch(setResume(result.resumes[0]));
       }
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
   };
 
@@ -118,7 +120,7 @@ const Template = () => {
       <div className="lg:ml-[234px] ml-0 px-[15px]">
         <RecentResumeCard componentRef={componentRef} templateId={templateId} />
         <div>
-          {/* <div className="flex items-center xs:flex-col md:flex-row justify-between pt-4 pb-6">
+          <div className="flex items-center xs:flex-col md:flex-row justify-between pt-4 pb-6">
             <h2 className="text-sm font-bold text-gray-900 uppercase dark:text-white">
               Templates Designs
             </h2>
@@ -132,7 +134,7 @@ const Template = () => {
                 View All Templates<i className="">{chevronRight}</i>
               </div>
             </Link>
-          </div> */}
+          </div>
           {pathname === "/resume-builder/templates" ? (
             <TemplateSlider
               templates={ALL_TEMPLATES.filter((template) => template.active)}
@@ -362,7 +364,9 @@ const Template = () => {
             )}
         </div>
       </div>
-      {outOfCredits && <TourBot config={tourBotConfig2} />}
+      {outOfCredits && (
+        <TourBot config={tourBotConfig2}/>
+      )}
     </>
   );
 };

@@ -934,6 +934,14 @@ const ResumeTemplate1 = ({
 
             {/* Education */}
             <div className="w-full mb-2">
+              {/* Debug: Check education data in template */}
+              {console.log("🔍 Template Debug - Education:", {
+                hasResume: !!resume,
+                hasEducation: !!resume?.education,
+                educationLength: resume?.education?.length || 0,
+                educationData: resume?.education,
+                educationCheck: resume?.education.length > 0,
+              })}
               {resume?.education.length > 0 && (
                 <Education
                   heading={resume.headings.education}
