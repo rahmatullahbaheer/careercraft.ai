@@ -10,7 +10,7 @@ import Link from "next/link";
 import { leftArrowIcon } from "@/helpers/iconsProvider";
 import { useReactToPrint } from "react-to-print";
 import { RootState } from "@/store/store";
-import { Resume } from "@/store/resumeSlice";
+// import { Resume } from "@/store/resumeSlice";
 const Page = () => {
   const params = useSearchParams();
   const [scale, setScale] = useState<number>(1);
@@ -27,22 +27,20 @@ const Page = () => {
   useEffect(() => {
     if (resumeData.id === "") {
       resumeData = userData.resumes.find(
-        (resume: Resume) => resume.id === resumeId
+        (resume: any) => resume.id === resumeId
       );
     }
-    const newWorkExperienceArray = resumeData.workExperienceArray.map(
-      (job) => {
-        return {
-          ...job,
-          toMonth: job.isContinue ? "Present" : job.toMonth,
-        };
-      }
-    );
+    const newWorkExperienceArray = resumeData.workExperienceArray.map((job) => {
+      return {
+        ...job,
+        toMonth: job.isContinue ? "Present" : job.toMonth,
+      };
+    });
 
     resumeData = {
       ...resumeData,
       workExperienceArray: newWorkExperienceArray,
-    }
+    };
   }, [templateId, resumeId]);
 
   const { components, templateLayout, cvHeadings, GenerationOrder } = template;
@@ -118,12 +116,15 @@ const Page = () => {
   };
 
   const cleanUpHTML = (page: any) => {
-    const templateNumber =  page.getAttribute(
-      "data-template-no"
-    );
-    let cleanUpIds
-    let containerNames
-    if(templateNumber === "2" || templateNumber === "6" || templateNumber === "7" || templateNumber === "8"){
+    const templateNumber = page.getAttribute("data-template-no");
+    let cleanUpIds;
+    let containerNames;
+    if (
+      templateNumber === "2" ||
+      templateNumber === "6" ||
+      templateNumber === "7" ||
+      templateNumber === "8"
+    ) {
       cleanUpIds = [
         "shortName",
         "email",
@@ -160,7 +161,7 @@ const Page = () => {
         "jobTitle",
         "summary",
         "languages",
-        "interests"
+        "interests",
       ];
       containerNames = [
         "header",
@@ -178,8 +179,6 @@ const Page = () => {
         "body",
       ];
     }
-
-    
 
     for (const cleanUpId of cleanUpIds) {
       let emptyIds = page.querySelectorAll(`#${cleanUpId}`);
@@ -284,9 +283,7 @@ const Page = () => {
     newNextDiv = document.createElement("div");
     newNextDiv.setAttribute("data-container-name", "languages");
     setStylesToElement(newNextDiv, "px-6 m-2 flex flex-wrap gap-4 w-full");
-    const getLanguagesHeading = page.querySelector(
-      "h2[data-name='languages']"
-    );
+    const getLanguagesHeading = page.querySelector("h2[data-name='languages']");
     if (getLanguagesHeading) {
       let indicatorDiv = document.createElement("span");
       indicatorDiv.setAttribute("data-container-name", "languages-indicator");
@@ -296,8 +293,8 @@ const Page = () => {
         indicatorDiv,
         getLanguagesHeading.nextSibling
       );
-      if(nextPage){
-        cleanUpHTML(nextPage)
+      if (nextPage) {
+        cleanUpHTML(nextPage);
       }
       const heights = Array.from(languagesDivs).map((div) => div.clientHeight);
       const maxHeight = Math.max(...heights);
@@ -383,8 +380,8 @@ const Page = () => {
         indicatorDiv,
         getReferencesHeading.nextSibling
       );
-      if(nextPage){
-        cleanUpHTML(nextPage)
+      if (nextPage) {
+        cleanUpHTML(nextPage);
       }
       const heights = Array.from(referencesDivs).map((div) => div.clientHeight);
       const maxHeight = Math.max(...heights);
@@ -468,8 +465,8 @@ const Page = () => {
         indicatorDiv,
         getEducationHeading.nextSibling
       );
-      if(nextPage){
-        cleanUpHTML(nextPage)
+      if (nextPage) {
+        cleanUpHTML(nextPage);
       }
       const heights = Array.from(educationDivs).map((div) => div.clientHeight);
 
@@ -578,7 +575,7 @@ const Page = () => {
     div.classList.add("page");
     div.id = "page-" + pages.length;
     pages.push(div);
-    if(cvRef.current){
+    if (cvRef.current) {
       cvRef.current.append(div);
     }
     return div;
@@ -679,7 +676,7 @@ const Page = () => {
                         singlespan.textContent = formatDate(
                           singleItem[item.id]
                         );
-                      } else { 
+                      } else {
                         singlespan.textContent = singleItem[item.id];
                       }
 
@@ -912,7 +909,6 @@ const Page = () => {
     });
     spans.forEach((span: any) => {
       setTimeout(() => {
-  
         const gen = FinalizeGeneration(span, pages[currentPageIndex]);
 
         if (gen) {
@@ -955,7 +951,7 @@ const Page = () => {
         ?.replaceAll(".", "")
         .replaceAll("/", "")}`
     );
-   
+
     generate(resumeData);
   }, [resumeData]);
 

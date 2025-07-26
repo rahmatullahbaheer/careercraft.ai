@@ -53,6 +53,14 @@ import { RootState } from "@/store/store";
 import { useSearchParams } from "next/navigation";
 
 const ResumeBuilder = () => {
+  // Helper function to clean JSON string from markdown formatting
+  const cleanJsonString = (jsonString: string) => {
+    return jsonString
+      .replace(/```json\s*/g, "") // Remove ```json at the start
+      .replace(/```\s*$/g, "") // Remove ``` at the end
+      .trim(); // Remove any extra whitespace
+  };
+
   const [confettingRunning, setConfettiRunning] = useState(false);
   const [showConfettiRunning, setShowConfettiRunning] = useState(true);
   const [showPopup, setShowPopup] = useState(false);
@@ -211,8 +219,21 @@ const ResumeBuilder = () => {
       const res = await response.json();
 
       if (res.success && res.result) {
-        let myJSON =
-          typeof res.result === "object" ? res.result : JSON.parse(res.result);
+        let myJSON;
+        if (typeof res.result === "object") {
+          myJSON = res.result;
+        } else {
+          try {
+            const cleanedResult = cleanJsonString(res.result);
+            myJSON = JSON.parse(cleanedResult);
+          } catch (parseError) {
+            console.error("Failed to parse JSON after cleaning:", parseError);
+            console.error("Original result:", res.result);
+            setShowConfettiRunning(false);
+            showErrorToast("Invalid response format");
+            return { success: false };
+          }
+        }
         const basicObj = {
           ...myJSON,
           name: userData?.firstName + " " + userData?.lastName,
@@ -369,11 +390,28 @@ const ResumeBuilder = () => {
     })
       .then(async (resp: any) => {
         const res = await resp.json();
+        console.log("Primary Skills Response: ", res);
+
         if (res.success) {
           if (res?.result) {
-            let myJSON = JSON.parse(JSON.stringify(res.result));
-            myJSON = JSON.parse(myJSON);
-            dispatch(setPrimarySkills({ primarySkills: myJSON }));
+            let myJSON;
+            try {
+              let resultString = JSON.parse(JSON.stringify(res.result));
+              if (typeof resultString === "string") {
+                const cleanedResult = cleanJsonString(resultString);
+                myJSON = JSON.parse(cleanedResult);
+              } else {
+                myJSON = resultString;
+              }
+              console.log("Primary Skills: ", myJSON);
+
+              dispatch(setPrimarySkills({ primarySkills: myJSON }));
+            } catch (parseError) {
+              console.error("Failed to parse primary skills JSON:", parseError);
+              console.error("Original result:", res.result);
+              setShowConfettiRunning(false);
+              showErrorToast("Invalid primary skills response format");
+            }
           }
         } else {
           setShowConfettiRunning(false);
@@ -477,31 +515,6 @@ const ResumeBuilder = () => {
   return (
     <>
       {/* <CreditInfoModal ref={creditsInfoRef} handleGenerate={handleGenerate} /> */}
-      {/* {showTemplatePopup && (
-        <div className="fixed top-0 left-0 z-50 flex items-center justify-center w-screen h-screen bg-black/90">
-          <div className="flex flex-col items-center gap-4 py-4 bg-gray-800 rounded-lg">
-            <div className="flex items-center justify-between w-full px-4">
-              <h1 className="font-semibold xs:text-xl md:text-2xl">
-                Select a Design for your Resume
-              </h1>
-              <h1
-                className="font-semibold cursor-pointer xs:text-xl md:text-2xl"
-                onClick={() => setShowTemplatePopup(false)}
-              >
-                {crossIcon}
-              </h1>
-            </div>
-            <div className="flex justify-start w-full px-4">
-              <p>Pick a template that aligns with your professional image.</p>
-            </div>
-            <div className=" xs:w-[300px] md:w-[44rem] lg:w-[55rem] xl:w-[55rem] rounded-xl z-50">
-              <TemplateSlider
-                templates={ALL_TEMPLATES.filter((template) => template.active)}
-              />
-            </div>
-          </div>
-        </div>
-      )} */}
 
       <div className="w-full sm:w-full z-1000 ">
         <div className="ml-0">
@@ -525,112 +538,7 @@ const ResumeBuilder = () => {
           <div className="fixed bottom-0 flex items-center justify-center">
             <Confetti active={confettingRunning} config={confettiConfig} />
           </div>
-          {/* {finished && (
-            <div className="space-y-3 text-white">
-              <div className="flex items-center justify-between gap-3 xs:flex-col md:flex-row">
-                <div className="flex items-center gaap-3">
-                  <h2 className="flex items-center my-3 text-base font-bold dark:text-gray-100 text-gray-950">
-                    Template Selection{" "}
-                  </h2>
-                  <div className="relative inset-0 ml-1 cursor-pointer group">
-                    {infoSmallIcon}
-                    <div className="w-40 md:w-44 bg-gradient-to-r  from-[#B324D7] to-[#615DFF] font-medium xs:text-[10px] md:text-[12px] px-2 absolute xs:left-1 md:left-[10px] xs:-top-[92px]  md:-top-[4.8rem]  hidden group-hover:block md:rounded-bl-none xs:rounded-bl-none md:rounded-br-xl text-gray-100  mb-6 shadow-xl rounded-xl py-2  transition-all">
-                      Select any template below to instantly update your resume
-                      design.
-                    </div>
-                  </div>
-                </div>
 
-                <Link
-                  href="/resume-builder/templates"
-                  className="overflow-hidden text-white no-underline rounded-lg md:mt-3"
-                >
-                  <div
-                    className={` font-bold bg-gradient-to-r hover:from-purple-800 hover:to-pink-600 text-[15px]  from-[#b324d7] to-[#615dff] dark:border-none dark:border-0 border-[1px] dark:border-gray-950 bg-transparent flex items-center gap-2 text-center py-2 px-3`}
-                  >
-                    View All Templates
-                    <i className=""> {chevronRight}</i>
-                  </div>
-                </Link>
-              </div>
-              <div className="flex flex-wrap items-center justify-center gap-4 ">
-                <Swiper
-                  slidesPerView={5}
-                  spaceBetween={10}
-                  rewind={true}
-                  speed={1200}
-                  navigation={true}
-                  autoplay={{ delay: 8500, disableOnInteraction: false }}
-                  modules={[Autoplay, Navigation]}
-                  className=""
-                  loop={true}
-                  breakpoints={{
-                    0: {
-                      slidesPerView: 2,
-                    },
-                    425: {
-                      slidesPerView: 3,
-                    },
-                    640: {
-                      slidesPerView: 4,
-                    },
-                    768: {
-                      slidesPerView: 5,
-                    },
-                    1080: {
-                      slidesPerView: 6,
-                    },
-                    1280: {
-                      slidesPerView: 6,
-                    },
-                  }}
-                >
-                  {ALL_TEMPLATES.filter((template) => template.active)
-                    .slice(0, 6)
-                    .map((template, index) => (
-                      <SwiperSlide key={`template-${index}`}>
-                        <div
-                          key={`template-${index}`}
-                          className="box-border relative flex items-center overflow-hidden rounded-lg group"
-                        >
-                          <Link
-                            className="no-underline"
-                            href={{
-                              pathname: "resume-builder/templates/template",
-                              query: { templateId: template.id },
-                            }}
-                          >
-                            <div className="absolute top-0 left-0 hidden w-full h-full overflow-hidden text-white rounded-lg group-hover:grid bg-slate-600/60 place-content-center">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth={1.5}
-                                stroke="currentColor"
-                                className="w-8 h-8"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15"
-                                />
-                              </svg>
-                            </div>
-                            <Image
-                              src={template.preview}
-                              alt={`template-${index}`}
-                              height={200}
-                              width={150}
-                              className="rounded-lg "
-                            />
-                          </Link>
-                        </div>
-                      </SwiperSlide>
-                    ))}
-                </Swiper>
-              </div>
-            </div>
-          )} */}
           {resumeData &&
             (resumeData?.name ||
               resumeData?.contact?.email ||
