@@ -29,7 +29,7 @@ const useGetCreditLimits = () => {
     if (session?.user?.email) {
       getCreditLimitsIfNotExists();
     }
-  }, [session?.user?.email, getCreditLimitsIfNotExists]);
+  }, [session?.user?.email]);
   return { getCreditLimitsIfNotExists };
 };
 

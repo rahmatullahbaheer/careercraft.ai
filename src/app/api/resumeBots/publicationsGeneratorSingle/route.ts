@@ -5,7 +5,7 @@ import TrainBot from "@/db/schemas/TrainBot";
 import { NextRequest, NextResponse } from "next/server";
 import startDB from "@/lib/db";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../../../lib/auth";
+import { authOptions } from "@/lib/auth";
 import { getTrainedModel } from "@/helpers/getTrainedModel";
 import { makeid } from "@/helpers/makeid";
 import {
@@ -23,7 +23,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 export async function POST(req: NextRequest) {
-  const session = await getServerSession(authOptions as any);
+  const session = await getServerSession(authOptions);
 
   if (!session) {
     return NextResponse.json(
@@ -38,9 +38,7 @@ export async function POST(req: NextRequest) {
     const trainBotData = reqBody?.trainBotData;
     const personName = reqBody?.personName;
     const jobTitle = reqBody?.jobTitle;
-    const userCredits = await getUserCreditsByEmail(
-      (session as any)?.user?.email
-    );
+    const userCredits = await getUserCreditsByEmail(session?.user?.email);
     const creditsUsed = reqBody?.creditsUsed;
     const dataset = "resume.writePublicationSingle";
     const model = await getTrainedModel(dataset);
@@ -55,7 +53,7 @@ export async function POST(req: NextRequest) {
     }
     await startDB();
 
-    let promptRec = await (Prompt as any).findOne({
+    let promptRec = await Prompt.findOne({
       type: "resume",
       name: "writePublicationSingle",
       active: true,
@@ -86,14 +84,14 @@ export async function POST(req: NextRequest) {
     let workId;
     const enc = encodingForModel("gpt-3.5-turbo"); // js-tiktoken
     let completionTokens = 0;
-    const stream = OpenAIStream(response as any, {
+    const stream = OpenAIStream(response, {
       onStart: async () => {
         workId = makeid();
         const payload = {
           id: workId,
         };
         await updateUserTotalCredits(
-          (session as any)?.user?.email,
+          session?.user?.email,
           creditsUsed,
           "resume"
         );
@@ -106,10 +104,7 @@ export async function POST(req: NextRequest) {
       onFinal: async (completions) => {
         try {
           if (completionTokens > 0) {
-            await updateUserTokens(
-              (session as any)?.user?.email,
-              completionTokens
-            );
+            await updateUserTokens(session?.user?.email, completionTokens);
           }
           try {
             if (trainBotData) {

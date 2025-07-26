@@ -28,7 +28,7 @@ const TemplateSlider = ({ templates }: Props) => {
         setActiveTemplate(activeIndex);
       }
     }
-  }, [templateId, templates]);
+  }, [templateId]);
 
   return (
     <div className="box-border flex flex-row flex-wrap items-start justify-start gap-6 p-4 ">

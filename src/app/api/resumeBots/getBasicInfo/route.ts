@@ -5,7 +5,7 @@ import { OpenAIStream, StreamingTextResponse } from "ai";
 import TrainBot from "@/db/schemas/TrainBot";
 import startDB from "@/lib/db";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../../../lib/auth";
+import { authOptions } from "@/lib/auth";
 import { getTrainedModel } from "@/helpers/getTrainedModel";
 import { makeid } from "@/helpers/makeid";
 import {
@@ -25,7 +25,7 @@ const openai = new OpenAI({
 });
 
 export async function POST(req: NextRequest) {
-  const session = await getServerSession(authOptions as any);
+  const session = await getServerSession(authOptions);
 
   if (!session) {
     return NextResponse.json(
@@ -47,9 +47,7 @@ export async function POST(req: NextRequest) {
     const jobPosition = reqBody?.jobPosition;
     const jobDescription = reqBody?.jobDescription;
 
-    const userCredits = await getUserCreditsByEmail(
-      (session as any)?.user?.email
-    );
+    const userCredits = await getUserCreditsByEmail(session?.user?.email);
     const creditsUsed = reqBody?.creditsUsed;
 
     let inputPrompt = "";
@@ -70,7 +68,7 @@ export async function POST(req: NextRequest) {
       //console.log(`Trained Model(${model}) for Dataset(${dataset})`);
 
       try {
-        const promptRec = await (Prompt as any).findOne({
+        const promptRec = await Prompt.findOne({
           type: "resume",
           name: "oneLineSlogan",
           active: true,
@@ -109,7 +107,7 @@ export async function POST(req: NextRequest) {
 
         //update total user credits
         await updateUserTotalCredits(
-          (session as any)?.user?.email,
+          session?.user?.email,
           creditsUsed,
           "resume"
         );
@@ -144,7 +142,7 @@ export async function POST(req: NextRequest) {
               Instructions: `Get basic information for the resume`,
             };
 
-            await (TrainBot as any).create({ ...obj });
+            await TrainBot.create({ ...obj });
           }
         } catch (error) {}
 
@@ -174,7 +172,7 @@ export async function POST(req: NextRequest) {
       try {
         if (resumeType === "resume-job-title") {
           await startDB();
-          const promptRec = await (Prompt as any).findOne({
+          const promptRec = await Prompt.findOne({
             type: "resume",
             name: "summary",
             active: true,
@@ -197,7 +195,7 @@ export async function POST(req: NextRequest) {
               ${promptSummary}`;
         } else if (resumeType === "resume-job-description") {
           await startDB();
-          const promptRec = await (Prompt as any).findOne({
+          const promptRec = await Prompt.findOne({
             type: "resume",
             name: "summary-for-specific-jd",
             active: true,
@@ -233,10 +231,10 @@ export async function POST(req: NextRequest) {
         const enc = encodingForModel("gpt-3.5-turbo"); // js-tiktoken
         let completionTokens = 0;
 
-        const stream = OpenAIStream(response as any, {
+        const stream = OpenAIStream(response, {
           onStart: async () => {
             await updateUserTotalCredits(
-              (session as any)?.user?.email,
+              session?.user?.email,
               creditsUsed,
               "resume"
             );
@@ -250,10 +248,7 @@ export async function POST(req: NextRequest) {
           onFinal: async (completions) => {
             try {
               if (completionTokens > 0) {
-                await updateUserTokens(
-                  (session as any)?.user?.email,
-                  completionTokens
-                );
+                await updateUserTokens(session?.user?.email, completionTokens);
               }
               if (trainBotData) {
                 await startDB();
@@ -303,7 +298,7 @@ export async function POST(req: NextRequest) {
         if (resumeType === "resume-job-title") {
           await startDB();
 
-          const promptRec = await (Prompt as any).findOne({
+          const promptRec = await Prompt.findOne({
             type: "resume",
             name: "primarySkills",
             active: true,
@@ -328,7 +323,7 @@ export async function POST(req: NextRequest) {
         } else if (resumeType === "resume-job-description") {
           await startDB();
 
-          const promptRec = await (Prompt as any).findOne({
+          const promptRec = await Prompt.findOne({
             type: "resume",
             name: "primarySkills-for-specific-jd",
             active: true,
@@ -362,7 +357,7 @@ export async function POST(req: NextRequest) {
 
         //update total records of user
         await updateUserTotalCredits(
-          (session as any)?.user?.email,
+          session?.user?.email,
           creditsUsed,
           "resume"
         );
@@ -398,7 +393,7 @@ export async function POST(req: NextRequest) {
               Instructions: `Write Primary Skills for Resume`,
             };
 
-            await (TrainBot as any).create({ ...obj });
+            await TrainBot.create({ ...obj });
           }
         } catch (error) {}
 

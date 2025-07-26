@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { WorkExperience } from "@/store/userDataSlice";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
+import { useReactToPrint } from "react-to-print";
 import {
   setBasicInfo,
   setWorkExperience,
@@ -90,7 +91,15 @@ const ResumeBuilder = () => {
   const userData = useSelector((state: RootState) => state.userData);
   const creditLimits = useSelector((state: RootState) => state.creditLimits);
   const { getCreditLimitsIfNotExists } = useGetCreditLimits();
-
+  const handlePrintClick = useReactToPrint({
+    contentRef: componentRef,
+    pageStyle: `
+    @page {
+      size: A4;
+      margin:0;
+    }
+  `,
+  });
   useEffect(() => {
     return () => {
       abortController?.abort();
@@ -468,7 +477,7 @@ const ResumeBuilder = () => {
   return (
     <>
       {/* <CreditInfoModal ref={creditsInfoRef} handleGenerate={handleGenerate} /> */}
-      {showTemplatePopup && (
+      {/* {showTemplatePopup && (
         <div className="fixed top-0 left-0 z-50 flex items-center justify-center w-screen h-screen bg-black/90">
           <div className="flex flex-col items-center gap-4 py-4 bg-gray-800 rounded-lg">
             <div className="flex items-center justify-between w-full px-4">
@@ -492,10 +501,10 @@ const ResumeBuilder = () => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
 
       <div className="w-full sm:w-full z-1000 ">
-        <div className="ml-0 lg:ml-[234px] px-[15px] lg:mb-[72px]">
+        <div className="ml-0">
           <RecentResumeCard
             source="dashboard"
             componentRef={componentRef}
@@ -516,7 +525,7 @@ const ResumeBuilder = () => {
           <div className="fixed bottom-0 flex items-center justify-center">
             <Confetti active={confettingRunning} config={confettiConfig} />
           </div>
-          {finished && (
+          {/* {finished && (
             <div className="space-y-3 text-white">
               <div className="flex items-center justify-between gap-3 xs:flex-col md:flex-row">
                 <div className="flex items-center gaap-3">
@@ -621,7 +630,7 @@ const ResumeBuilder = () => {
                 </Swiper>
               </div>
             </div>
-          )}
+          )} */}
           {resumeData &&
             (resumeData?.name ||
               resumeData?.contact?.email ||
@@ -632,13 +641,13 @@ const ResumeBuilder = () => {
                     resumeData.state.resumeLoading ? "animate-pulse" : ""
                   }`}
                 >
-                  <div className="  whitespace-nowrap w-full ml-auto xs:mt-4 xs:flex xs:justify-center md:inline-block gap-3 xs:pb-0 md:pb-4 md:sticky top-4 right-0 z-[35]">
-                    <Link
+                  <div className=" whitespace-nowrap w-full ml-auto xs:mt-4 xs:flex xs:justify-center md:inline-block gap-3 xs:pb-0 md:pb-4 md:sticky top-4 right-0 z-[35]">
+                    <button
                       className="no-underline w-fit"
-                      href={`/resume-builder/preview-resume?templateId=5&resumeId=${resumeData.id}`}
+                      onClick={handlePrintClick}
                     >
                       <div
-                        className={`flex flex-row gap-2 items-center xs:flex-1 w-fit ml-auto lg:text-sm text-xs lg:px-6 px-3 py-2 rounded-full  bg-[#e4e9f7]  dark:bg-[#18181b] text-gray-900  dark:text-gray-300 border-[1px] border-gray-950/80 dark:border-[#f0f0f0] `}
+                        className={`flex flex-row gap-2 items-center xs:flex-1 w-fit ml-auto lg:text-sm text-xs lg:px-6 px-3 py-2 rounded-full  bg-[#e4e9f7]  dark:bg-[#18181b] text-gray-900 cursor-pointer dark:text-gray-300 border-[1px] border-gray-950/80 dark:border-[#f0f0f0] `}
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -659,9 +668,9 @@ const ResumeBuilder = () => {
                             d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
                           />
                         </svg>
-                        Download / Print Preview
+                        Print Resume
                       </div>
-                    </Link>
+                    </button>
                   </div>
                   <div
                     className={`bg-white ${

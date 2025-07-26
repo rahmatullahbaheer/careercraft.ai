@@ -37,13 +37,13 @@ const Interest = ({
   return (
     <>
       <span
-        className={` ${styles?.span1} ${
+        className={` w-full h-0 border-[1px] !border-gray-500 mt-3 ${
           customStyle?.borderTopBottom ? "!block" : "hidden"
         }`}
       ></span>
       <div className={`interests ${rounded_style ? rounded_style : ""}`}>
         <h3
-          className={`${styles?.interest_h3} ${
+          className={`flex items-center gap-2 text-xs font-semibold uppercase border-2 border-transparent md:my-1 md:text-base hover:border-dashed hover:border-gray-500 ${
             customStyle?.centeredHeading ? "justify-center" : ""
           }
           ${customStyle?.bgColor}
@@ -75,7 +75,7 @@ const Interest = ({
         </h3>
       </div>
       <span
-        className={`${styles?.span2} ${
+        className={`w-full h-0 border-[1px] !border-gray-500 mt-0 ${
           customStyle?.borderTopBottom || customStyle?.borderBottom
             ? "!block"
             : "hidden"
@@ -98,7 +98,7 @@ const Interest = ({
           >
             <div
               key={i}
-              className={`${styles?.interest_div}`}
+              className={`border-2 border-transparent md:w-full hover:border-dashed hover:border-gray-500 hover:cursor-move hover:border-2`}
               onDragStart={(e) =>
                 e.dataTransfer.setData("text/plain", i.toString())
               }
@@ -122,7 +122,7 @@ const Interest = ({
 
               <div className="px-4 py-1">
                 {rec?.description && Array.isArray(rec?.description) ? (
-                  <ul className={` ${styles?.interest_ul}`}>
+                  <ul className={`flex flex-col gap-1 pl-0 text-xs`}>
                     {rec?.description.map((achievement: any, ind: number) =>
                       achievement === "" ? (
                         <li
@@ -140,10 +140,10 @@ const Interest = ({
                             );
                           }}
                           draggable
-                          className={`group ${styles?.interest_li}`}
+                          className={`group flex flex-row items-center justify-center h-8 hover:bg-slate-200`}
                         >
                           <div
-                            className={`${styles?.interest_line}`}
+                            className={`hidden text-xs font-medium text-gray-500 uppercase cursor-pointer group-hover:block`}
                             onClick={() => {
                               handlers.handleRemoveExtraOthersSpace(
                                 i,
@@ -170,7 +170,7 @@ const Interest = ({
                             );
                           }}
                           draggable
-                          className={`${styles?.interest_delete1} `}
+                          className={`hover:border-dashed list-disc hover:cursor-move hover:border-gray-500 border-[1px] hover:border-[1px] border-transparent hover:shadow-md relative hover:bg-gray-100 parent `}
                           key={ind}
                         >
                           <EditableField
@@ -193,7 +193,7 @@ const Interest = ({
                                 "interests"
                               )
                             }
-                            className={`${styles?.interest_delete} `}
+                            className={`w-4 h-4 absolute right-0.5 top-0.5 text-red-500 cursor-pointer hidden `}
                           >
                             {crossIcon1}
                           </div>
@@ -208,7 +208,7 @@ const Interest = ({
                         type="textarea"
                         value={rec.description}
                         onSave={(value: string) => {
-                          handlers.handleUpdateInterests(value, i,"interests");
+                          handlers.handleUpdateInterests(value, i, "interests");
                         }}
                       />
                     </li>
@@ -240,7 +240,7 @@ const Interest = ({
                       />
                       <div className="flex w-full gap-2 my-2">
                         <button
-                          className="save_btn"
+                          className="text-white bg-green-500 rounded-md   h-9 px-[14px]"
                           onClick={() => {
                             // Save the new achievement to the state and possibly the database
                             handlers.handleAddOthersAchivement(
@@ -259,7 +259,7 @@ const Interest = ({
                             setNewWorkExperience(-1);
                             setNewBulletSection(null);
                           }}
-                          className="delete_btn"
+                          className="py-1 text-white !bg-red-500 rounded-md  px-[14px]"
                         >
                           Cancel
                         </button>

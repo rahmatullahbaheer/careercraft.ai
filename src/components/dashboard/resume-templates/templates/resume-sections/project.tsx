@@ -8,7 +8,7 @@ import { crossIcon1 } from "@/helpers/iconsProvider";
 import useDragAndDrop from "@/hooks/useDragAndDrop";
 import useHandler from "@/hooks/useHandler";
 import useUpdateAndSave from "@/hooks/useUpdateAndSave";
-import { Project as ProjectType} from "@/store/userDataSlice";
+import { Project as ProjectType } from "@/store/userDataSlice";
 import React, { useState } from "react";
 
 type Props = {
@@ -31,12 +31,12 @@ const Project = ({ heading, projects, styles, customStyle }: Props) => {
   return (
     <>
       <span
-        className={` ${styles?.span1} ${
+        className={`w-full h-0 border-[1px] !border-gray-500 mt-3 ${
           customStyle?.borderTopBottom ? "!block" : "hidden"
         }`}
       ></span>
       <h3
-        className={`projects ${styles?.project_h3}  ${
+        className={`projects flex items-center gap-2 text-xs font-semibold uppercase border-2 border-transparent md:my-1 md:text-base hover:border-dashed hover:border-gray-500 ${
           customStyle?.centeredHeading ? "justify-center" : ""
         } ${styles.bgColor} `}
       >
@@ -73,7 +73,7 @@ const Project = ({ heading, projects, styles, customStyle }: Props) => {
         />
       </h3>
       <span
-        className={`${styles?.span2} ${
+        className={`w-full h-0 border-[1px] !border-gray-500 mt-0 ${
           customStyle?.borderTopBottom || customStyle?.borderBottom
             ? "!block"
             : "hidden"
@@ -96,7 +96,7 @@ const Project = ({ heading, projects, styles, customStyle }: Props) => {
           >
             <div
               key={i}
-              className={`${styles?.project_div}`}
+              className={`border-2 border-transparent md:w-full hover:border-dashed hover:border-gray-500 hover:cursor-move hover:border-2`}
               onDragStart={(e) =>
                 e.dataTransfer.setData("text/plain", i.toString())
               }
@@ -104,7 +104,9 @@ const Project = ({ heading, projects, styles, customStyle }: Props) => {
               onDrop={(e) => handleDropOthers(e, i, "projects")}
               draggable
             >
-              <h2 className={`${styles?.project_h2}`}>
+              <h2
+                className={`text-base font-bold leading-8 hover:shadow-md hover:cursor-text hover:bg-gray-100`}
+              >
                 <EditableField
                   value={rec?.title}
                   style={{ width: "100%" }}
@@ -120,7 +122,7 @@ const Project = ({ heading, projects, styles, customStyle }: Props) => {
 
               <div className="px-4 py-1">
                 {rec?.description && (
-                  <ul className={styles?.project_ul}>
+                  <ul className={`flex flex-col gap-1 pl-0 text-xs`}>
                     {rec?.description.map((achievement: any, ind: number) =>
                       achievement === "" ? (
                         <li
@@ -138,10 +140,10 @@ const Project = ({ heading, projects, styles, customStyle }: Props) => {
                             );
                           }}
                           draggable
-                          className={`group ${styles?.project_li}`}
+                          className={`group flex flex-row items-center justify-center h-8 hover:bg-slate-200`}
                         >
                           <div
-                            className={styles?.project_line}
+                            className={`hidden text-xs font-medium text-gray-500 uppercase cursor-pointer group-hover:block`}
                             onClick={() => {
                               handlers.handleRemoveExtraOthersSpace(
                                 i,
@@ -168,7 +170,7 @@ const Project = ({ heading, projects, styles, customStyle }: Props) => {
                             );
                           }}
                           draggable
-                          className={`parent ${styles?.project_delete1}`}
+                          className={`parent hover:border-dashed list-disc hover:cursor-move hover:border-gray-500 border-[1px] hover:border-[1px] border-transparent hover:shadow-md relative hover:bg-gray-100`}
                           key={ind}
                         >
                           <EditableField
@@ -191,7 +193,7 @@ const Project = ({ heading, projects, styles, customStyle }: Props) => {
                                 "projects"
                               )
                             }
-                            className={`${styles?.project_delete} child`}
+                            className={`w-4 h-6 absolute right-0.5 top-0.5 text-red-500 cursor-pointer child`}
                           >
                             {crossIcon1}
                           </div>
@@ -203,9 +205,9 @@ const Project = ({ heading, projects, styles, customStyle }: Props) => {
 
                 {rewardIndex === i && newBulletSection === "Projects" ? (
                   <>
-                    <div className={styles?.project_div_input}>
+                    <div className={`flex flex-wrap w-full gap-1 mt-4`}>
                       <input
-                        className={styles?.project_new_input} // Apply Tailwind CSS classes
+                        className={`border-2 border-gray-300 rounded-md p-2 w-full`}
                         onChange={(e) => setNewReward(e.target.value)}
                         value={newReward}
                         name="newReward"

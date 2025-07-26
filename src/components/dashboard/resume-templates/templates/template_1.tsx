@@ -52,6 +52,7 @@ const ResumeTemplate1 = ({
   setStreamedSummaryData: any;
 }) => {
   const resume = useSelector((state: any) => state.resume);
+  console.log("RRRRR", resume);
 
   const userData = useSelector((state: RootState) => state.userData);
   const [newPrimarySkill, setNewPrimarySkill] = useState(false);
@@ -99,7 +100,7 @@ const ResumeTemplate1 = ({
       setStreamedJDData(null);
       setRegeneratedRecordIndex(null);
     }
-  }, [streamedJDData, setStreamedJDData]);
+  }, [streamedJDData]);
 
   // handle regenrate
   const handleRegenrate = (rec: any, i: number) => {
@@ -934,14 +935,6 @@ const ResumeTemplate1 = ({
 
             {/* Education */}
             <div className="w-full mb-2">
-              {/* Debug: Check education data in template */}
-              {console.log("🔍 Template Debug - Education:", {
-                hasResume: !!resume,
-                hasEducation: !!resume?.education,
-                educationLength: resume?.education?.length || 0,
-                educationData: resume?.education,
-                educationCheck: resume?.education.length > 0,
-              })}
               {resume?.education.length > 0 && (
                 <Education
                   heading={resume.headings.education}
@@ -951,7 +944,7 @@ const ResumeTemplate1 = ({
                 />
               )}
             </div>
-            <AddSection setNewSectionEntry={setNewSectionEntry} />
+            {/* <AddSection setNewSectionEntry={setNewSectionEntry} /> */}
           </div>
         </div>
       </div>

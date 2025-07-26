@@ -1,74 +1,8 @@
-// src/store/resumeSlice.ts
+// src/store/counterSlice.js
 
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { WorkExperience } from "./userDataSlice";
+import { createSlice } from "@reduxjs/toolkit";
 
-export interface ResumeState {
-  resumeType: string;
-  jobDescription: string;
-  jobPosition: string;
-  detailedResume: boolean;
-  resumeLoading: boolean;
-  componentRef: any;
-}
-
-export interface ResumeHeadings {
-  education: string;
-  primarySkills: string;
-  workExperienceArray: string;
-  summary: string;
-  contact: string;
-  publications: string;
-  references: string;
-  interests: string;
-  certifications: string;
-  awards: string;
-  trainings: string;
-  languages: string;
-  projects: string;
-}
-
-export interface ResumeContact {
-  email: string;
-  phone: string;
-  linkedIn: string;
-  address: string;
-}
-
-export interface ResumeEducation {
-  school: string;
-  degree: string;
-  year: string;
-}
-
-export interface Resume {
-  state: ResumeState;
-  headings: ResumeHeadings;
-  dateTime: string;
-  id: string;
-  uploadedFileName: string;
-  shortName: string;
-  name: string;
-  jobTitle: string;
-  contact: ResumeContact;
-  education: ResumeEducation[];
-  summary: string;
-  workExperienceArray: WorkExperience[];
-  workExperience: string;
-  primarySkills: any[];
-  professionalSkills: any[];
-  secondarySkills: any[];
-  interests: any[];
-  awards: any[];
-  publications: any[];
-  trainings: any[];
-  references: any[];
-  languages: any[];
-  certifications: any[];
-  projects: any[];
-}
-
-const initialState: Resume = {
+const initialState = {
   state: {
     resumeType: "resume-basic",
     jobDescription: "",
@@ -139,19 +73,18 @@ const resumeSlice = createSlice({
       };
     },
 
-    resetResume(state, action: PayloadAction<ResumeState>) {
+    resetResume(state, action) {
       return {
         ...initialState,
         state: action.payload,
       };
     },
-    setResume(state, action: PayloadAction<Partial<Resume>>) {
+    setResume(state, action) {
       return {
-        ...state,
         ...action.payload,
-      } as Resume;
+      };
     },
-    setField(state, action: PayloadAction<{ name: keyof Resume; value: any }>) {
+    setField(state, action) {
       return {
         ...state,
         [action.payload.name]: action.payload.value,
@@ -163,31 +96,31 @@ const resumeSlice = createSlice({
     //     quantifyingExperience: action.payload,
     //   };
     // },
-    setState(state, action: PayloadAction<Partial<ResumeState>>) {
+    setState(state, action) {
       return {
         ...state,
         state: {
           ...state.state,
-          ...action.payload,
+          [action.payload.name]: action.payload.value,
         },
       };
     },
 
-    setId(state, action: PayloadAction<string>) {
+    setId(state, action) {
       return {
         ...state,
         id: action.payload,
       };
     },
 
-    setUploadedFileName(state, action: PayloadAction<string>) {
+    setUploadedFileName(state, action) {
       return {
         ...state,
         uploadedFileName: action.payload,
       };
     },
 
-    setBasicInfo(state, action: PayloadAction<any>) {
+    setBasicInfo(state, action) {
       return {
         ...state,
         shortName: action.payload.shortName,
@@ -197,7 +130,7 @@ const resumeSlice = createSlice({
         education: action.payload.education,
       };
     },
-    setHeadings(state, action: PayloadAction<Partial<ResumeHeadings>>) {
+    setHeadings(state, action) {
       return {
         ...state,
         headings: {
@@ -206,94 +139,92 @@ const resumeSlice = createSlice({
         },
       };
     },
-    setSummary(state, action: PayloadAction<string>) {
+    setSummary(state, action) {
       return {
         ...state,
         summary: action.payload,
       };
     },
-    setWorkExperience(state, action: PayloadAction<string>) {
+    setWorkExperience(state, action) {
       return {
         ...state,
         workExperience: action.payload,
       };
     },
-    setWorkExperienceArray(
-      state,
-      action: PayloadAction<{ workExperienceArray: WorkExperience[] }>
-    ) {
+    setWorkExperienceArray(state, action) {
       return {
         ...state,
         workExperienceArray: action.payload.workExperienceArray,
       };
     },
-    setTrainings(state, action: PayloadAction<{ trainings: any[] }>) {
+    setTrainings(state, action) {
       return {
         ...state,
         trainings: action.payload.trainings,
       };
     },
-    setAwards(state, action: PayloadAction<{ awards: any[] }>) {
+    setAwards(state, action) {
       return {
         ...state,
         awards: action.payload.awards,
       };
     },
-    setPublications(state, action: PayloadAction<{ publications: any[] }>) {
+    setPublications(state, action) {
       return {
         ...state,
         publications: action.payload.publications,
       };
     },
-    setProjects(state, action: PayloadAction<{ projects: any[] }>) {
+    setProjects(state, action) {
       return {
         ...state,
         projects: action.payload.projects,
       };
     },
-    setReferences(state, action: PayloadAction<{ references: any[] }>) {
+    setReferences(state, action) {
       return {
         ...state,
         references: action.payload.references,
       };
     },
-    setInterests(state, action: PayloadAction<{ interests: any[] }>) {
+    setInterests(state, action) {
       return {
         ...state,
         interests: action.payload.interests,
       };
     },
-    setCertifications(state, action: PayloadAction<{ certifications: any[] }>) {
+    setCertifications(state, action) {
       return {
         ...state,
         certifications: action.payload.certifications,
       };
     },
-    setLanguages(state, action: PayloadAction<{ languages: any[] }>) {
+    setLanguages(state, action) {
       return {
         ...state,
         languages: action.payload.languages,
       };
     },
-    setPrimarySkills(state, action: PayloadAction<{ primarySkills: any[] }>) {
+
+    setCustomExperienceArray(state, action) {
+      return {
+        ...state,
+        customExperienceArray: action.payload,
+      };
+    },
+    setPrimarySkills(state, action) {
       return {
         ...state,
         primarySkills: action.payload.primarySkills,
       };
     },
-    setSecondarySkills(
-      state,
-      action: PayloadAction<{ secondarySkills: any[] }>
-    ) {
+    setSecondarySkills(state, action) {
       return {
         ...state,
         secondarySkills: action.payload.secondarySkills,
       };
     },
-    setProfessionalSkills(
-      state,
-      action: PayloadAction<{ professionalSkills: any[] }>
-    ) {
+    setProfessionalSkills(state, action) {
       return {
         ...state,
         professionalSkills: action.payload.professionalSkills,

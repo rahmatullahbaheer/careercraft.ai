@@ -38,7 +38,7 @@ const ResumeTemplate10 = () => {
   useEffect(() => {
     setIsSidebar(true);
     return () => setIsSidebar(false);
-  }, [setIsSidebar]);
+  }, []);
   const [newSectionEntry, setNewSectionEntry] = useState({
     awards: false,
     certifications: false,

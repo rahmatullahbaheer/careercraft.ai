@@ -10,9 +10,7 @@ import { showSuccessToast } from "@/helpers/toast";
 import { RootState } from "@/store/store";
 
 const useSaveResumeToDB = () => {
-  const { resume: resumeData, userData } = useSelector(
-    (state: RootState) => state
-  );
+  const { resume: resumeData, userData } = useSelector((state: RootState) => state);
   const { setAvailableCredits } = useAppContext();
   const { data: session } = useSession();
   const dispatch = useDispatch();
@@ -26,17 +24,8 @@ const useSaveResumeToDB = () => {
 
     if (!source.id || source.id === "") {
       obj = { ...source, id: makeid(), dateTime: new Date().toISOString() };
-      console.log("Creating new resume with ID:", obj.id);
-    } else {
-      console.log("Updating existing resume with ID:", obj.id);
     }
     dispatch(setResume(obj));
-
-    console.log("Saving resume to DB:", {
-      email: userData.email,
-      hasId: !!obj.id,
-      hasName: !!obj.name,
-    });
 
     axios
       .post(
@@ -48,7 +37,6 @@ const useSaveResumeToDB = () => {
         { signal: abortController?.signal }
       )
       .then(async (resp) => {
-        console.log("Resume save response:", resp.data);
         showSuccessToast("Resume Updated Successfully");
 
         if (userData.trialResume === false) {
@@ -94,7 +82,6 @@ const useSaveResumeToDB = () => {
         }
       })
       .catch((error) => {
-        console.error("Resume save error:", error);
         console.log(error);
       });
   };

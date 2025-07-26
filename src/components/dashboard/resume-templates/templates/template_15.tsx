@@ -143,11 +143,11 @@ const ResumeTemplate15 = () => {
   useEffect(() => {
     setIsSidebar(true);
     return () => setIsSidebar(false);
-  }, [setIsSidebar]);
+  }, []);
   useEffect(() => {
     setTemplate15(true);
     return () => setTemplate15(false);
-  }, [setTemplate15]);
+  }, []);
 
   return (
     <div className="relative w-full text-gray-900 first-page">

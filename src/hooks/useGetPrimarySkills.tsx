@@ -13,7 +13,7 @@ const useGetPrimarySkills = (
   setRegenerating: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   const dispatch = useDispatch();
-  const { abortController, setOutOfCredits } = useAppContext();
+  const {abortController, setOutOfCredits} = useAppContext();
   const userData = useSelector((state: RootState) => state.userData);
   const resumeData = useSelector((state: RootState) => state.resume);
   const { getUserDataIfNotExists } = useGetUserData();
@@ -35,7 +35,7 @@ const useGetPrimarySkills = (
         skills: userData?.skills,
       });
     }
-  }, [userData]);
+  }, []);
 
   const getPrimarySkills = async () => {
     setRegenerating(true);

@@ -3,11 +3,11 @@ import startDB from "@/lib/db";
 import User from "@/db/schemas/User";
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../../../lib/auth";
+import { authOptions } from "@/lib/auth";
 export const maxDuration = 300; // This function can run for a maximum of 5 seconds
 export const dynamic = "force-dynamic";
 export async function POST(req: NextRequest) {
-  const session = await getServerSession(authOptions as any);
+  const session = await getServerSession(authOptions);
 
   if (!session) {
     return NextResponse.json(
@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
     await startDB();
 
     // Find the user by email
-    const user = await (User as any).findOne({ email });
+    const user = await User.findOne({ email });
 
     if (!user) {
       return NextResponse.json(

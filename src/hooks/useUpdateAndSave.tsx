@@ -5,7 +5,6 @@ import {
   setField as setResumeField,
   setSummary,
   setWorkExperienceArray,
-  Resume,
 } from "@/store/resumeSlice";
 import { useDispatch, useSelector } from "react-redux";
 import useSaveResumeToDB from "./useSaveToDB";
@@ -60,7 +59,7 @@ const useUpdateAndSave = () => {
   const updateAndSaveOthers = (updatedExp, section: string) => {
     dispatch(
       setResumeField({
-        name: section as keyof Resume,
+        name: section,
         value: updatedExp,
       })
     );

@@ -120,7 +120,7 @@ const Template = () => {
       <div className="lg:ml-[234px] ml-0 px-[15px]">
         <RecentResumeCard componentRef={componentRef} templateId={templateId} />
         <div>
-          <div className="flex items-center xs:flex-col md:flex-row justify-between pt-4 pb-6">
+          {/* <div className="flex items-center xs:flex-col md:flex-row justify-between pt-4 pb-6">
             <h2 className="text-sm font-bold text-gray-900 uppercase dark:text-white">
               Templates Designs
             </h2>
@@ -134,7 +134,7 @@ const Template = () => {
                 View All Templates<i className="">{chevronRight}</i>
               </div>
             </Link>
-          </div>
+          </div> */}
           {pathname === "/resume-builder/templates" ? (
             <TemplateSlider
               templates={ALL_TEMPLATES.filter((template) => template.active)}

@@ -19,7 +19,7 @@ const useGetSummary = (
   const creditLimits = useSelector((state: RootState) => state.creditLimits);
   const [aiInputUserData, setAiInputUserData] = useState({});
   const path = usePathname();
-  const { abortController, setOutOfCredits } = useAppContext();
+  const {abortController, setOutOfCredits} = useAppContext()
   useEffect(() => {
     if (userData && userData?.email) {
       setAiInputUserData({
@@ -33,7 +33,7 @@ const useGetSummary = (
         skills: userData?.skills,
       });
     }
-  }, [userData]);
+  }, []);
 
   const getSummary = async () => {
     // return aiInputUserData
@@ -57,7 +57,7 @@ const useGetSummary = (
           fileAddress: userData.uploadedResume.fileName,
         },
       }),
-      signal: abortController?.signal,
+      signal: abortController?.signal
     })
       .then(async (resp) => {
         if (resp.ok && resp.body) {
@@ -77,14 +77,12 @@ const useGetSummary = (
 
           dispatch(setSummary(summaryTemp));
 
-          // Always save the resume when summary is generated
-          saveResumeToDB({
-            ...resumeData,
-            summary: summaryTemp,
-          });
-
           if (path !== "/resume-builder") {
             showSuccessToast("Generated Successfully");
+            saveResumeToDB({
+              ...resumeData,
+              summary: summaryTemp,
+            });
           }
         } else {
           setStreamedSummaryData(resumeData?.summary);
@@ -98,7 +96,7 @@ const useGetSummary = (
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err)
         // setStreamedSummaryData(resumeData?.summary);
         // dispatch(setSummary(resumeData?.summary));
       });

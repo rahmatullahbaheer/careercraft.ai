@@ -276,7 +276,7 @@ export const PublicationsForm = ({
           <input
             id="title"
             type="text"
-            className="form-control"
+            className="w-full border  border-[#2e2f45] dark:focus-within:border-[#e6f85e] outline-none rounded-md px-3 py-2 mt-1 focus:ring-blue-500 focus:border-blue-500  bg-transparent"
             placeholder="Title"
             value={formik.values.title}
             onChange={formik.handleChange}
@@ -294,7 +294,7 @@ export const PublicationsForm = ({
           <input
             id="publisher"
             type="text"
-            className="form-control"
+            className="w-full border  border-[#2e2f45] dark:focus-within:border-[#e6f85e] outline-none rounded-md px-3 py-2 mt-1 focus:ring-blue-500 focus:border-blue-500  bg-transparent"
             placeholder="Publisher"
             onChange={formik.handleChange}
             value={formik.values.publisher}
@@ -312,7 +312,7 @@ export const PublicationsForm = ({
           <input
             id="date"
             type="date"
-            className="form-control"
+            className="w-full border  border-[#2e2f45] dark:focus-within:border-[#e6f85e] outline-none rounded-md px-3 py-2 mt-1 focus:ring-blue-500 focus:border-blue-500  bg-transparent"
             placeholder="Date"
             onChange={formik.handleChange}
             value={formik.values.date}
@@ -329,7 +329,7 @@ export const PublicationsForm = ({
           </label>
           <textarea
             id="description"
-            className="form-control"
+            className="w-full border  border-[#2e2f45] dark:focus-within:border-[#e6f85e] outline-none rounded-md px-3 py-2 mt-1 focus:ring-blue-500 focus:border-blue-500  bg-transparent"
             onChange={formik.handleChange}
             placeholder="Description"
             value={formik.values.description}
@@ -338,13 +338,13 @@ export const PublicationsForm = ({
         <div className="flex flex-row-reverse items-center justify-end gap-2 ">
           <input
             type="submit"
-            className="cursor-pointer form-btn"
+            className="cursor-pointer xs:w-full md:w-5/12 flex mt-3 flex-row gap-1 items-center justify-center text-blue-700 hover:text-white border-[1px] border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
             value={isEditing ? "Update Publication" : "Add Publication"}
           />
           <input
             type="button"
             onClick={formCloseHandler}
-            className="cursor-pointer form-btn "
+            className="cursor-pointer xs:w-full md:w-5/12 flex mt-3 flex-row gap-1 items-center justify-center text-blue-700 hover:text-white border-[1px] border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 "
             value="Cancel"
           />
         </div>
@@ -439,7 +439,7 @@ export const CertificationsForm = ({
           <input
             id="title"
             type="text"
-            className="form-control"
+            className="w-full border  border-[#2e2f45] dark:focus-within:border-[#e6f85e] outline-none rounded-md px-3 py-2 mt-1 focus:ring-blue-500 focus:border-blue-500  bg-transparent"
             placeholder="Title"
             value={formik.values.title}
             onChange={formik.handleChange}
@@ -457,7 +457,7 @@ export const CertificationsForm = ({
           <input
             id="issuingOrganization"
             type="text"
-            className="form-control"
+            className="w-full border  border-[#2e2f45] dark:focus-within:border-[#e6f85e] outline-none rounded-md px-3 py-2 mt-1 focus:ring-blue-500 focus:border-blue-500  bg-transparent"
             placeholder="Issuing Organization"
             onChange={formik.handleChange}
             value={formik.values.issuingOrganization}
@@ -475,7 +475,7 @@ export const CertificationsForm = ({
           <input
             id="date"
             type="date"
-            className="form-control"
+            className="w-full border  border-[#2e2f45] dark:focus-within:border-[#e6f85e] outline-none rounded-md px-3 py-2 mt-1 focus:ring-blue-500 focus:border-blue-500  bg-transparent"
             placeholder="Date"
             onChange={formik.handleChange}
             value={formik.values.date}
@@ -492,7 +492,7 @@ export const CertificationsForm = ({
           </label>
           <textarea
             id="description"
-            className="form-control"
+            className="w-full border  border-[#2e2f45] dark:focus-within:border-[#e6f85e] outline-none rounded-md px-3 py-2 mt-1 focus:ring-blue-500 focus:border-blue-500  bg-transparent"
             onChange={formik.handleChange}
             placeholder="Description"
             value={formik.values.description}
@@ -501,12 +501,12 @@ export const CertificationsForm = ({
         <div className="flex flex-row-reverse items-center justify-end gap-2 mb-4">
           <input
             type="submit"
-            className="cursor-pointer form-btn "
+            className="cursor-pointer xs:w-full md:w-5/12 flex mt-3 flex-row gap-1 items-center justify-center text-blue-700 hover:text-white border-[1px] border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 "
             value={isEditing ? "Update Certification" : "Add Certification"}
           />
           <input
             type="button"
-            className="cursor-pointer form-btn"
+            className="cursor-pointer xs:w-full md:w-5/12 flex mt-3 flex-row gap-1 items-center justify-center text-blue-700 hover:text-white border-[1px] border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
             value="Cancel"
             onClick={formCloseHandler}
           />
@@ -605,7 +605,7 @@ export const AwardsForm = ({
           <input
             id="title"
             type="text"
-            className="form-control"
+            className="w-full border  border-[#2e2f45] dark:focus-within:border-[#e6f85e] outline-none rounded-md px-3 py-2 mt-1 focus:ring-blue-500 focus:border-blue-500  bg-transparent"
             placeholder="Title"
             value={formik.values.title}
             onChange={formik.handleChange}
@@ -623,7 +623,7 @@ export const AwardsForm = ({
           <input
             id="awardingOrganization"
             type="text"
-            className="form-control"
+            className="w-full border  border-[#2e2f45] dark:focus-within:border-[#e6f85e] outline-none rounded-md px-3 py-2 mt-1 focus:ring-blue-500 focus:border-blue-500  bg-transparent"
             placeholder="Awarding Organization"
             onChange={formik.handleChange}
             value={formik.values.awardingOrganization}
@@ -641,7 +641,7 @@ export const AwardsForm = ({
           <input
             id="date"
             type="date"
-            className="form-control"
+            className="w-full border  border-[#2e2f45] dark:focus-within:border-[#e6f85e] outline-none rounded-md px-3 py-2 mt-1 focus:ring-blue-500 focus:border-blue-500  bg-transparent"
             placeholder="Date"
             onChange={formik.handleChange}
             value={formik.values.date}
@@ -658,7 +658,7 @@ export const AwardsForm = ({
           </label>
           <textarea
             id="description"
-            className="form-control"
+            className="w-full border  border-[#2e2f45] dark:focus-within:border-[#e6f85e] outline-none rounded-md px-3 py-2 mt-1 focus:ring-blue-500 focus:border-blue-500  bg-transparent"
             onChange={formik.handleChange}
             placeholder="Description"
             value={formik.values.description}
@@ -667,13 +667,13 @@ export const AwardsForm = ({
         <div className="flex flex-row-reverse items-center justify-end gap-2 ">
           <input
             type="submit"
-            className="cursor-pointer form-btn"
+            className="cursor-pointer xs:w-full md:w-5/12 flex mt-3 flex-row gap-1 items-center justify-center text-blue-700 hover:text-white border-[1px] border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
             value={isEditing ? "Update Awards" : "Add Awards"}
           />
           <input
             type="button"
             onClick={formCloseHandler}
-            className="cursor-pointer form-btn"
+            className="cursor-pointer xs:w-full md:w-5/12 flex mt-3 flex-row gap-1 items-center justify-center text-blue-700 hover:text-white border-[1px] border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
             value="Cancel"
           />
         </div>
@@ -764,7 +764,7 @@ export const InterestsForm = ({
           </label>
           <textarea
             id="description"
-            className="form-control"
+            className="w-full border  border-[#2e2f45] dark:focus-within:border-[#e6f85e] outline-none rounded-md px-3 py-2 mt-1 focus:ring-blue-500 focus:border-blue-500  bg-transparent"
             onChange={formik.handleChange}
             placeholder="Interest"
             value={formik.values.description}
@@ -780,7 +780,7 @@ export const InterestsForm = ({
             className={`cursor-pointer  whitespace-normal ${
               isSidebar
                 ? "px-2 py-2 text-blue-500 border border-blue-500 rounded-lg"
-                : "form-btn"
+                : "xs:w-full md:w-5/12 flex mt-3 flex-row gap-1 items-center justify-center text-blue-700 hover:text-white border-[1px] border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
             }`}
             value={isEditing ? "Update Interest" : "Add Interest"}
           />
@@ -790,7 +790,7 @@ export const InterestsForm = ({
             className={`cursor-pointer ${
               isSidebar
                 ? "px-4 py-2 text-blue-500 border border-blue-500 rounded-lg"
-                : "form-btn"
+                : "xs:w-full md:w-5/12 flex mt-3 flex-row gap-1 items-center justify-center text-blue-700 hover:text-white border-[1px] border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
             }`}
             value="Cancel"
           />
@@ -872,7 +872,7 @@ export const ReferencesForm = ({
           <input
             id="name"
             type="text"
-            className="form-control"
+            className="w-full border  border-[#2e2f45] dark:focus-within:border-[#e6f85e] outline-none rounded-md px-3 py-2 mt-1 focus:ring-blue-500 focus:border-blue-500  bg-transparent"
             placeholder="Name"
             value={formik.values.name}
             onChange={formik.handleChange}
@@ -890,7 +890,7 @@ export const ReferencesForm = ({
           <input
             id="position"
             type="text"
-            className="form-control"
+            className="w-full border  border-[#2e2f45] dark:focus-within:border-[#e6f85e] outline-none rounded-md px-3 py-2 mt-1 focus:ring-blue-500 focus:border-blue-500  bg-transparent"
             placeholder="Position"
             onChange={formik.handleChange}
             value={formik.values.position}
@@ -908,7 +908,7 @@ export const ReferencesForm = ({
           <input
             id="company"
             type="text"
-            className="form-control"
+            className="w-full border  border-[#2e2f45] dark:focus-within:border-[#e6f85e] outline-none rounded-md px-3 py-2 mt-1 focus:ring-blue-500 focus:border-blue-500  bg-transparent"
             placeholder="Company"
             onChange={formik.handleChange}
             value={formik.values.company}
@@ -926,7 +926,7 @@ export const ReferencesForm = ({
           <input
             id="contactInformation"
             type="email"
-            className="form-control"
+            className="w-full border  border-[#2e2f45] dark:focus-within:border-[#e6f85e] outline-none rounded-md px-3 py-2 mt-1 focus:ring-blue-500 focus:border-blue-500  bg-transparent"
             onChange={formik.handleChange}
             placeholder="Contact Information"
             value={formik.values.contactInformation}
@@ -936,13 +936,13 @@ export const ReferencesForm = ({
         <div className="flex flex-row-reverse items-center justify-end gap-2 ">
           <input
             type="submit"
-            className="cursor-pointer form-btn "
+            className="cursor-pointer xs:w-full md:w-5/12 flex mt-3 flex-row gap-1 items-center justify-center text-blue-700 hover:text-white border-[1px] border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 "
             value={isEditing ? "Update Preference" : "Add Reference"}
           />
           <input
             type="button"
             onClick={formCloseHandler}
-            className="cursor-pointer form-btn"
+            className="cursor-pointer xs:w-full md:w-5/12 flex mt-3 flex-row gap-1 items-center justify-center text-blue-700 hover:text-white border-[1px] border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
             value="Cancel"
           />{" "}
         </div>
@@ -1040,7 +1040,7 @@ export const TrainingForm = ({
           <input
             id="company"
             type="text"
-            className="form-control"
+            className="w-full border  border-[#2e2f45] dark:focus-within:border-[#e6f85e] outline-none rounded-md px-3 py-2 mt-1 focus:ring-blue-500 focus:border-blue-500  bg-transparent"
             placeholder="Company"
             value={formik.values.company}
             onChange={formik.handleChange}
@@ -1058,7 +1058,7 @@ export const TrainingForm = ({
           <input
             id="position"
             type="text"
-            className="form-control"
+            className="w-full border  border-[#2e2f45] dark:focus-within:border-[#e6f85e] outline-none rounded-md px-3 py-2 mt-1 focus:ring-blue-500 focus:border-blue-500  bg-transparent"
             placeholder="Position"
             onChange={formik.handleChange}
             value={formik.values.position}
@@ -1076,7 +1076,7 @@ export const TrainingForm = ({
           <input
             id="startDate"
             type="date"
-            className="form-control"
+            className="w-full border  border-[#2e2f45] dark:focus-within:border-[#e6f85e] outline-none rounded-md px-3 py-2 mt-1 focus:ring-blue-500 focus:border-blue-500  bg-transparent"
             placeholder="Start Date"
             onChange={formik.handleChange}
             value={formik.values.startDate}
@@ -1094,7 +1094,7 @@ export const TrainingForm = ({
           <input
             id="endDate"
             type="date"
-            className="form-control"
+            className="w-full border  border-[#2e2f45] dark:focus-within:border-[#e6f85e] outline-none rounded-md px-3 py-2 mt-1 focus:ring-blue-500 focus:border-blue-500  bg-transparent"
             onChange={formik.handleChange}
             placeholder="End Date"
             value={formik.values.endDate}
@@ -1111,7 +1111,7 @@ export const TrainingForm = ({
           </label>
           <textarea
             id="description"
-            className="form-control"
+            className="w-full border  border-[#2e2f45] dark:focus-within:border-[#e6f85e] outline-none rounded-md px-3 py-2 mt-1 focus:ring-blue-500 focus:border-blue-500  bg-transparent"
             onChange={formik.handleChange}
             placeholder="Description"
             value={formik.values.description}
@@ -1120,13 +1120,13 @@ export const TrainingForm = ({
         <div className="flex flex-row-reverse items-center justify-end gap-2 ">
           <input
             type="submit"
-            className="cursor-pointer form-btn"
+            className="cursor-pointer  xs:w-full md:w-5/12 flex mt-3 flex-row gap-1 items-center justify-center text-blue-700 hover:text-white border-[1px] border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
             value={isEditing ? "Update Training" : "Add Training"}
           />
           <input
             type="button"
             onClick={formCloseHandler}
-            className="cursor-pointer form-btn"
+            className="cursor-pointer xs:w-full md:w-5/12 flex mt-3 flex-row gap-1 items-center justify-center text-blue-700 hover:text-white border-[1px] border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
             value="Cancel"
           />
         </div>
@@ -1206,7 +1206,7 @@ export const LangaugesForm = ({
           <input
             id="language"
             type="text"
-            className="form-control"
+            className="w-full border  border-[#2e2f45] dark:focus-within:border-[#e6f85e] outline-none rounded-md px-3 py-2 mt-1 focus:ring-blue-500 focus:border-blue-500  bg-transparent"
             placeholder="Language"
             value={formik.values.language}
             onChange={formik.handleChange}
@@ -1227,7 +1227,7 @@ export const LangaugesForm = ({
             id="proficiency"
             value={formik.values.proficiency}
             onChange={formik.handleChange}
-            className={`form-control ${
+            className={`w-full border  border-[#2e2f45] dark:focus-within:border-[#e6f85e] outline-none rounded-md px-3 py-2 mt-1 focus:ring-blue-500 focus:border-blue-500  bg-transparent ${
               pathname == "/profile-review" || (isSidebar && !template15)
                 ? "text-gray-200"
                 : "text-gray-950"
@@ -1248,7 +1248,7 @@ export const LangaugesForm = ({
             className={`cursor-pointer  ${
               isSidebar
                 ? "px-2 py-2 border border-blue-500 text-blue-500 rounded-lg"
-                : "form-btn"
+                : "xs:w-full md:w-5/12 flex mt-3 flex-row gap-1 items-center justify-center text-blue-700 hover:text-white border-[1px] border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
             }`}
             value={isEditing ? "Update Language" : "Add Language"}
           />
@@ -1258,7 +1258,7 @@ export const LangaugesForm = ({
             className={`cursor-pointer ${
               isSidebar
                 ? "px-2 py-2 border border-blue-500 text-blue-500 rounded-lg"
-                : "form-btn"
+                : "xs:w-full md:w-5/12 flex mt-3 flex-row gap-1 items-center justify-center text-blue-700 hover:text-white border-[1px] border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
             }`}
             value="Cancel"
           />
@@ -1351,7 +1351,7 @@ export const ProjectsForm = ({
           <input
             id="title"
             type="text"
-            className="form-control"
+            className="w-full border  border-[#2e2f45] dark:focus-within:border-[#e6f85e] outline-none rounded-md px-3 py-2 mt-1 focus:ring-blue-500 focus:border-blue-500  bg-transparent"
             placeholder="Title"
             value={formik.values.title}
             onChange={formik.handleChange}
@@ -1368,7 +1368,7 @@ export const ProjectsForm = ({
           </label>
           <textarea
             id="description"
-            className="form-control"
+            className="w-full border  border-[#2e2f45] dark:focus-within:border-[#e6f85e] outline-none rounded-md px-3 py-2 mt-1 focus:ring-blue-500 focus:border-blue-500  bg-transparent"
             onChange={formik.handleChange}
             placeholder="Description"
             value={formik.values.description}
@@ -1377,13 +1377,13 @@ export const ProjectsForm = ({
         <div className="flex flex-row-reverse items-center justify-end gap-2">
           <input
             type="submit"
-            className="cursor-pointer form-btn"
+            className="cursor-pointer xs:w-full md:w-5/12 flex mt-3 flex-row gap-1 items-center justify-center text-blue-700 hover:text-white border-[1px] border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
             value={isEditing ? "Update Project" : "Add Project"}
           />
           <input
             type="button"
             onClick={formCloseHandler}
-            className="cursor-pointer form-btn"
+            className="cursor-pointer xs:w-full md:w-5/12 flex mt-3 flex-row gap-1 items-center justify-center text-blue-700 hover:text-white border-[1px] border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
             value="Cancel"
           />
         </div>

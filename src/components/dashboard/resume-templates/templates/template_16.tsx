@@ -63,7 +63,7 @@ const ResumeTemplate16 = () => {
   useEffect(() => {
     setIsSidebar(true);
     return () => setIsSidebar(false);
-  }, [setIsSidebar]);
+  }, []);
 
   const { updateSaveHook } = useUpdateAndSave();
 
