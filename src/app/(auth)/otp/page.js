@@ -1,8 +1,8 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function ForgotPassword() {
   const [otp, setOtp] = useState("");
@@ -11,25 +11,77 @@ export default function ForgotPassword() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    // Get email from URL parameters
+    const urlEmail = searchParams.get("email");
+    if (urlEmail) {
+      setEmail(urlEmail);
+    }
+  }, [searchParams]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError("");
     setMessage("");
 
+    if (!email || !otp) {
+      setError("Please enter both email and OTP.");
+      setLoading(false);
+      return;
+    }
+
+    if (otp.length !== 6) {
+      setError("OTP must be 6 digits.");
+      setLoading(false);
+      return;
+    }
+
     try {
-      const res = await axios.post("/api/auth/verify-otp", { email, otp });
-      setMessage(res.data.message || "OTP sent to your email.");
+      console.log(`Verifying OTP for ${email}: ${otp}`);
+      const res = await axios.post("/api/auth/verify-otp", {
+        email: email.trim().toLowerCase(),
+        otp: otp.trim(),
+      });
+
+      setMessage(res.data.message || "OTP verified successfully.");
       console.log(
-        "OTP sent successfully, redirecting to Change Password page...",
+        "OTP verified successfully, redirecting to Change Password page...",
         res
       );
+
       if (res?.status === 200) {
-        // Redirect to OTP page after successful OTP request
-        router.push("/change-password");
+        // Pass email and OTP via URL parameters for password reset
+        const params = new URLSearchParams({
+          email: email.trim().toLowerCase(),
+          otp: otp.trim(),
+        });
+
+        // Store in localStorage as backup
+        localStorage.setItem("resetEmail", email.trim().toLowerCase());
+        localStorage.setItem("resetOtp", otp.trim());
+
+        // Redirect to Change Password page after successful OTP verification
+        router.push(`/change-password?${params.toString()}`);
       }
     } catch (err) {
-      setError(err.response?.data?.error || "Failed to send OTP.");
+      console.error("OTP verification error:", err);
+      const errorMessage = err.response?.data?.error || "Failed to verify OTP.";
+      setError(errorMessage);
+
+      // If OTP is invalid or expired, suggest going back to email step
+      if (
+        errorMessage.includes("expired") ||
+        errorMessage.includes("Invalid")
+      ) {
+        setTimeout(() => {
+          if (confirm("Would you like to request a new OTP?")) {
+            router.push("/otp-email");
+          }
+        }, 3000);
+      }
     }
 
     setLoading(false);
@@ -61,31 +113,14 @@ export default function ForgotPassword() {
             alt="CareerCraft.ai"
             className="h-12 w-auto mx-auto mb-4"
           />
-          <h2 style={{ fontWeight: 600 }}>Forgot Password</h2>
+          <h2 style={{ fontWeight: 600 }}>Verify OTP</h2>
           <p style={{ color: "#555", marginTop: 8 }}>
-            Enter your email address to receive a one-time password (OTP) for
-            account recovery.
+            Enter the OTP sent to your email address to continue with password
+            reset.
           </p>
         </div>
 
         <form onSubmit={handleSubmit}>
-          {/* OTP Field at the Top */}
-          <input
-            type="text"
-            placeholder="Enter OTP (if received)"
-            value={otp}
-            onChange={(e) => setOtp(e.target.value)}
-            maxLength={6}
-            style={{
-              width: "100%",
-              padding: "12px 16px",
-              borderRadius: 8,
-              border: "1px solid #ddd",
-              marginBottom: 16,
-              fontSize: 16,
-            }}
-          />
-
           {/* Email Input */}
           <input
             type="email"
@@ -101,6 +136,26 @@ export default function ForgotPassword() {
               marginBottom: 16,
               fontSize: 16,
             }}
+          />
+
+          {/* OTP Field */}
+          <input
+            type="text"
+            placeholder="Enter 6-digit OTP"
+            value={otp}
+            onChange={(e) => setOtp(e.target.value)}
+            maxLength={6}
+            style={{
+              width: "100%",
+              padding: "12px 16px",
+              borderRadius: 8,
+              border: "1px solid #ddd",
+              marginBottom: 16,
+              fontSize: 16,
+              textAlign: "center",
+              letterSpacing: "2px",
+            }}
+            required
           />
 
           {/* Submit Button */}
@@ -120,7 +175,7 @@ export default function ForgotPassword() {
               marginBottom: 8,
             }}
           >
-            {loading ? "Sending..." : "Send OTP"}
+            {loading ? "Verifying..." : "Verify OTP"}
           </button>
         </form>
 

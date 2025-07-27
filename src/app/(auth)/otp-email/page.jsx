@@ -20,52 +20,26 @@ const ForgotPasswordEmail = () => {
       return;
     }
 
-    // Basic email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setError("Please enter a valid email address");
-      return;
-    }
-
     setLoading(true);
     setError("");
     setMessage("");
 
     try {
-      console.log(`Sending OTP to: ${email.trim().toLowerCase()}`);
-      const res = await axios.post("/api/auth/forgot-password", {
-        email: email.trim().toLowerCase(),
-      });
+      const res = await axios.post("/api/auth/forgot-password", { email });
       setMessage(res.data.message || "OTP sent to your email.");
       console.log("OTP sent successfully, redirecting to OTP page...", res);
 
       if (res?.status === 200) {
-        // Wait a moment to show success message, then redirect with email parameter
+        // Wait a moment to show success message, then redirect
         setTimeout(() => {
-          const params = new URLSearchParams({
-            email: email.trim().toLowerCase(),
-          });
-          router.push(`/otp?${params.toString()}`);
+          router.push("/otp");
         }, 2000);
       }
     } catch (err) {
       console.error("Forgot password error:", err);
-      const errorMessage =
-        err.response?.data?.error || "Failed to send OTP. Please try again.";
-      setError(errorMessage);
-
-      // If user not found, provide helpful message
-      if (errorMessage.includes("No account found")) {
-        setTimeout(() => {
-          if (
-            confirm(
-              "No account found with this email. Would you like to sign up?"
-            )
-          ) {
-            router.push("/signup");
-          }
-        }, 3000);
-      }
+      setError(
+        err.response?.data?.error || "Failed to send OTP. Please try again."
+      );
     } finally {
       setLoading(false);
     }

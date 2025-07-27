@@ -251,7 +251,7 @@ function Price() {
                   />
                   <span className="text-sm">Quick Checkout</span>
                 </label>
-                <label className="flex items-center">
+                {/* <label className="flex items-center">
                   <input
                     type="radio"
                     name="paymentMethod"
@@ -261,7 +261,7 @@ function Price() {
                     className="mr-2"
                   />
                   <span className="text-sm">Card Payment</span>
-                </label>
+                </label> */}
               </div>
             </div>
           )}
