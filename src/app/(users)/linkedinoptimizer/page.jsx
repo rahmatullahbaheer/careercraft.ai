@@ -532,13 +532,6 @@ const LinkedinOptimizer = () => {
                 {/* Action Buttons */}
                 <div className="flex gap-3">
                   <button
-                    onClick={() => handleView(generator.id)}
-                    className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 hover:border-gray-400 transition-colors"
-                  >
-                    <Eye size={16} />
-                    View
-                  </button>
-                  <button
                     onClick={() => handleGenerate(generator.id)}
                     disabled={msgLoading[generator.id]}
                     className={`flex items-center gap-2 px-4 py-2 ${generator.buttonColor} text-white rounded-lg font-medium transition-colors disabled:opacity-50`}
