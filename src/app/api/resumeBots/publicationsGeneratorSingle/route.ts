@@ -6,6 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 import startDB from "@/lib/db";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import type { AuthOptions } from "next-auth";
 import { getTrainedModel } from "@/helpers/getTrainedModel";
 import { makeid } from "@/helpers/makeid";
 import {
@@ -23,7 +24,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 export async function POST(req: NextRequest) {
-  const session = await getServerSession(authOptions);
+  const session = await getServerSession(authOptions as AuthOptions);
 
   if (!session) {
     return NextResponse.json(
@@ -53,15 +54,15 @@ export async function POST(req: NextRequest) {
     }
     await startDB();
 
-    let promptRec = await Prompt.findOne({
+    let promptRec = await (Prompt as any).findOne({
       type: "resume",
       name: "writePublicationSingle",
       active: true,
     });
 
-    let prompt = promptRec.value;
-    prompt = await prompt.replaceAll("{{PersonName}}", personName);
-    prompt = await prompt.replaceAll("{{JobTitle}}", jobTitle);
+    let prompt = promptRec?.value;
+    prompt = await prompt?.replaceAll("{{PersonName}}", personName);
+    prompt = await prompt?.replaceAll("{{JobTitle}}", jobTitle);
 
     const inputPrompt = `
     ${prompt}
@@ -84,7 +85,7 @@ export async function POST(req: NextRequest) {
     let workId;
     const enc = encodingForModel("gpt-3.5-turbo"); // js-tiktoken
     let completionTokens = 0;
-    const stream = OpenAIStream(response, {
+    const stream = OpenAIStream(response as any, {
       onStart: async () => {
         workId = makeid();
         const payload = {

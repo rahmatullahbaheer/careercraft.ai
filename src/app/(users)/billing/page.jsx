@@ -256,7 +256,10 @@ const page = () => {
               >
                 Refresh Data
               </button>
-              <button className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+              <button
+                onClick={() => (window.location.href = "/#Price")}
+                className="px-6 py-2 bg-green-600 cursor-pointer text-white rounded-lg hover:bg-green-700 transition-all focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+              >
                 Upgrade Plan
               </button>
             </div>

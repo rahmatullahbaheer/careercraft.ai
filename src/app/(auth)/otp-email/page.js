@@ -84,8 +84,8 @@ const ForgotPasswordEmail = () => {
               Forgot Password?
             </h2>
             <p className="text-gray-600">
-              Don't worry! Enter your email address and we'll send you a code to
-              reset your password.
+              Don&apos;t worry! Enter your email address and we&apos;ll send you
+              a code to reset your password.
             </p>
           </div>
 
@@ -156,7 +156,7 @@ const ForgotPasswordEmail = () => {
           {/* Footer */}
           <div className="mt-8 text-center">
             <p className="text-xs text-gray-500">
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <Link
                 href="/signup"
                 className="text-blue-600 hover:text-blue-800 font-medium"

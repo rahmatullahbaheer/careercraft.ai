@@ -6,6 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 import startDB from "@/lib/db";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import type { AuthOptions } from "next-auth";
 import { getTrainedModel } from "@/helpers/getTrainedModel";
 import { makeid } from "@/helpers/makeid";
 import {
@@ -23,7 +24,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 export async function POST(req: NextRequest) {
-  const session = await getServerSession(authOptions);
+  const session = await getServerSession(authOptions as AuthOptions);
 
   if (!session) {
     return NextResponse.json(
@@ -61,25 +62,25 @@ export async function POST(req: NextRequest) {
     if (detailedResume) {
       dataset = "linkedin.jobDescription";
       model = await getTrainedModel(dataset);
-      promptRec = await Prompt.findOne({
+      promptRec = await (Prompt as any).findOne({
         type: "linkedin",
         name: "jobDescription",
         active: true,
       });
-      prompt = promptRec.value;
-      prompt = prompt.replaceAll("{{PersonName}}", personName);
-      prompt = prompt.replaceAll("{{JobTitle}}", jobTitle);
+      prompt = promptRec?.value;
+      prompt = prompt?.replaceAll("{{PersonName}}", personName);
+      prompt = prompt?.replaceAll("{{JobTitle}}", jobTitle);
     } else {
       dataset = "resume.writeJDSingle";
       model = await getTrainedModel(dataset);
-      promptRec = await Prompt.findOne({
+      promptRec = await (Prompt as any).findOne({
         type: "resume",
         name: "jdSingle",
         active: true,
       });
-      prompt = promptRec.value;
-      prompt = prompt.replaceAll("{{PersonName}}", personName);
-      prompt = prompt.replaceAll("{{JobTitle}}", jobTitle);
+      prompt = promptRec?.value;
+      prompt = prompt?.replaceAll("{{PersonName}}", personName);
+      prompt = prompt?.replaceAll("{{JobTitle}}", jobTitle);
     }
 
     const inputPrompt = `
@@ -109,7 +110,7 @@ export async function POST(req: NextRequest) {
     let workId: any;
     const enc = encodingForModel("gpt-3.5-turbo"); // js-tiktoken
     let completionTokens = 0;
-    const stream = OpenAIStream(response, {
+    const stream = OpenAIStream(response as any, {
       onStart: async () => {
         workId = makeid();
         const payload = {

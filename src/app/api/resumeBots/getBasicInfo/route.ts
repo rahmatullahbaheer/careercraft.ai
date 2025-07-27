@@ -8,6 +8,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { getTrainedModel } from "@/helpers/getTrainedModel";
 import { makeid } from "@/helpers/makeid";
+import type { AuthOptions } from "next-auth";
 import {
   TrainBotEntryType,
   makeTrainedBotEntry,
@@ -25,7 +26,7 @@ const openai = new OpenAI({
 });
 
 export async function POST(req: NextRequest) {
-  const session = await getServerSession(authOptions);
+  const session = await getServerSession(authOptions as AuthOptions);
 
   if (!session) {
     return NextResponse.json(
@@ -68,14 +69,14 @@ export async function POST(req: NextRequest) {
       //console.log(`Trained Model(${model}) for Dataset(${dataset})`);
 
       try {
-        const promptRec = await Prompt.findOne({
+        const promptRec: any = await (Prompt as any).findOne({
           type: "resume",
           name: "oneLineSlogan",
           active: true,
         });
 
-        let prompt = promptRec.value;
-        prompt = await prompt.replaceAll("{{PersonName}}", personName);
+        let prompt = promptRec?.value;
+        prompt = prompt?.replaceAll("{{PersonName}}", personName);
 
         const inputPrompt = `This is the Resume data: ${JSON.stringify(
           userData
@@ -142,7 +143,7 @@ export async function POST(req: NextRequest) {
               Instructions: `Get basic information for the resume`,
             };
 
-            await TrainBot.create({ ...obj });
+            await (TrainBot as any).create({ ...obj });
           }
         } catch (error) {}
 
@@ -172,14 +173,14 @@ export async function POST(req: NextRequest) {
       try {
         if (resumeType === "resume-job-title") {
           await startDB();
-          const promptRec = await Prompt.findOne({
+          const promptRec: any = await (Prompt as any).findOne({
             type: "resume",
             name: "summary",
             active: true,
           });
-          const prompt = promptRec.value;
+          const prompt = promptRec?.value;
 
-          let promptSummary = await prompt.replaceAll(
+          let promptSummary = prompt?.replaceAll(
             "{{jobPosition}}",
             jobPosition
           );
@@ -195,18 +196,18 @@ export async function POST(req: NextRequest) {
               ${promptSummary}`;
         } else if (resumeType === "resume-job-description") {
           await startDB();
-          const promptRec = await Prompt.findOne({
+          const promptRec: any = await (Prompt as any).findOne({
             type: "resume",
             name: "summary-for-specific-jd",
             active: true,
           });
-          const prompt = promptRec.value;
+          const prompt = promptRec?.value;
 
-          let promptSummary = await prompt.replaceAll(
+          let promptSummary = prompt?.replaceAll(
             "{{jobDescription}}",
             jobDescription
           );
-          promptSummary = await promptSummary.replaceAll(
+          promptSummary = promptSummary?.replaceAll(
             "{{PersonName}}",
             personName
           );
@@ -231,7 +232,7 @@ export async function POST(req: NextRequest) {
         const enc = encodingForModel("gpt-3.5-turbo"); // js-tiktoken
         let completionTokens = 0;
 
-        const stream = OpenAIStream(response, {
+        const stream = OpenAIStream(response as any, {
           onStart: async () => {
             await updateUserTotalCredits(
               session?.user?.email,
@@ -298,14 +299,14 @@ export async function POST(req: NextRequest) {
         if (resumeType === "resume-job-title") {
           await startDB();
 
-          const promptRec = await Prompt.findOne({
+          const promptRec = await (Prompt as any).findOne({
             type: "resume",
             name: "primarySkills",
             active: true,
           });
-          const promptDB = promptRec.value;
+          const promptDB = promptRec?.value;
 
-          const promptRefined = await promptDB.replaceAll(
+          const promptRefined = promptDB?.replaceAll(
             "{{jobPosition}}",
             jobPosition
           );
@@ -323,14 +324,14 @@ export async function POST(req: NextRequest) {
         } else if (resumeType === "resume-job-description") {
           await startDB();
 
-          const promptRec = await Prompt.findOne({
+          const promptRec = await (Prompt as any).findOne({
             type: "resume",
             name: "primarySkills-for-specific-jd",
             active: true,
           });
-          const promptDB = promptRec.value;
+          const promptDB = promptRec?.value;
 
-          const promptRefined = await promptDB.replaceAll(
+          const promptRefined = promptDB?.replaceAll(
             "{{jobDescription}}",
             jobDescription
           );
@@ -393,7 +394,7 @@ export async function POST(req: NextRequest) {
               Instructions: `Write Primary Skills for Resume`,
             };
 
-            await TrainBot.create({ ...obj });
+            await (TrainBot as any).create({ ...obj });
           }
         } catch (error) {}
 

@@ -23,12 +23,12 @@ const Reference = ({ heading, references, styles, customStyle }: Props) => {
   return (
     <>
       <span
-        className={` ${styles?.span1} ${
+        className={`  w-full h-0 border-[1px] !border-gray-500 mt-3 ${
           customStyle?.borderTopBottom ? "!block" : "hidden"
         }`}
       ></span>
       <h3
-        className={`references ${styles?.reference_h3} ${
+        className={`references flex items-center gap-2 text-xs font-semibold uppercase border-2 border-transparent md:my-1 md:text-base hover:border-dashed hover:border-gray-500 ${
           customStyle?.centeredHeading ? "justify-center" : ""
         }
           ${styles?.bgColor}
@@ -67,16 +67,21 @@ const Reference = ({ heading, references, styles, customStyle }: Props) => {
         />
       </h3>
       <span
-        className={`${styles?.span2} ${
+        className={`w-full h-0 border-[1px] !border-gray-500 mt-0 ${
           customStyle?.borderTopBottom || customStyle?.borderBottom
             ? "!block"
             : "hidden"
         }`}
       ></span>
-      <ul className={`${styles?.reference_ul}`}>
+      <ul
+        className={`flex flex-wrap w-full gap-3 pl-0 md:flex-row lg:flex-row`}
+      >
         {references.map((rec: ReferenceType, i: number) => {
           return (
-            <li key={i} className={`${styles?.reference_li} group`}>
+            <li
+              key={i}
+              className={`w-[45%] md:w-[30%] m-2 xs:m-0 relative border-transparent border-2 hover:border-dashed hover:border-gray-500 group`}
+            >
               <Toolbar
                 // addAchivement={() => {
                 //   setNewWorkExperience(i)
@@ -100,7 +105,9 @@ const Reference = ({ heading, references, styles, customStyle }: Props) => {
                   onDrop={(e) => handleDropOthers(e, i, "references")}
                   draggable
                 >
-                  <h2 className={`${styles?.reference_h2}`}>
+                  <h2
+                    className={`text-base font-bold leading-8 hover:shadow-md hover:cursor-text hover:bg-gray-100`}
+                  >
                     <EditableField
                       value={rec?.name}
                       style={{ width: "100%" }}
@@ -113,9 +120,11 @@ const Reference = ({ heading, references, styles, customStyle }: Props) => {
                       }}
                     />
                   </h2>
-                  <h2 className={`${styles?.reference_h2_1}`}>
+                  <h2
+                    className={`flex flex-wrap gap-1 text-xs font-semibold leading-relaxed hover:cursor-default`}
+                  >
                     {rec?.position && (
-                      <span className={`${styles?.reference_date}`}>
+                      <span className={`hover:shadow-md hover:bg-gray-100`}>
                         <EditableField
                           value={rec?.position}
                           onSave={(value: string) => {
@@ -129,7 +138,7 @@ const Reference = ({ heading, references, styles, customStyle }: Props) => {
                       </span>
                     )}
                     |
-                    <span className={`${styles?.reference_date}`}>
+                    <span className={`hover:shadow-md hover:bg-gray-100`}>
                       <EditableField
                         value={rec?.company}
                         onSave={(value: string) => {
@@ -142,10 +151,12 @@ const Reference = ({ heading, references, styles, customStyle }: Props) => {
                       />
                     </span>
                   </h2>
-                  <h2 className={`${styles?.reference_h2_1}`}>
+                  <h2
+                    className={`flex flex-wrap gap-1 text-xs font-semibold leading-relaxed hover:cursor-default`}
+                  >
                     Contact Info:
                     {rec?.contactInformation && (
-                      <span className={`${styles?.reference_date}`}>
+                      <span className={`hover:shadow-md hover:bg-gray-100`}>
                         <EditableField
                           value={rec.contactInformation}
                           onSave={(value: string) => {

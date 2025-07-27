@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../../lib/auth";
+import { authOptions } from "../../../../lib/auth";
 import { updateUserCreditsByAdmin } from "@/helpers/updateUserCreditsByAdmin";
 import User from "@/db/schemas/User";
 import Package from "@/db/schemas/Package";

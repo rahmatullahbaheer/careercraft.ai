@@ -5,6 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 import startDB from "@/lib/db";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import type { AuthOptions } from "next-auth";
 import { updateUserTotalCredits } from "@/helpers/updateUserTotalCredits";
 import { getUserCreditsByEmail } from "@/helpers/getUserCreditsByEmail";
 import { updateToolUsage } from "@/helpers/updateToolUsage";
@@ -16,7 +17,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 export async function POST(req: NextRequest) {
-  const session = await getServerSession(authOptions);
+  const session = await getServerSession(authOptions as AuthOptions);
 
   if (!session) {
     return NextResponse.json(
@@ -80,7 +81,7 @@ export async function POST(req: NextRequest) {
     });
     const enc = encodingForModel("gpt-3.5-turbo"); // js-tiktoken
     let completionTokens = 0;
-    const stream = OpenAIStream(response, {
+    const stream = OpenAIStream(response as any, {
       onStart: async () => {
         // postConsultingBid(payload);
         await updateUserTotalCredits(

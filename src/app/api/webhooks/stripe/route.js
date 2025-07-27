@@ -107,8 +107,10 @@ async function handleCheckoutSessionCompleted(session) {
     // Add credits to user account and update payment history
     if (packageData.credits && packageData.credits > 0) {
       try {
-        console.log(`🔄 Processing atomic payment update for ${customerEmail}...`);
-        
+        console.log(
+          `🔄 Processing atomic payment update for ${customerEmail}...`
+        );
+
         const paymentData = {
           paymentIntentId: session.payment_intent || session.id,
           amount: (session.amount_total || 0) / 100, // Convert to dollars
@@ -126,19 +128,22 @@ async function handleCheckoutSessionCompleted(session) {
         );
 
         console.log(`✅ Atomic checkout session update completed`);
-        console.log(`✅ Final state: userCredits=${updatedUser.userCredits}, totalCredits=${updatedUser.totalCredits}`);
-        console.log(`✅ Final package: ${updatedUser.userPackage}, packageId=${updatedUser.creditPackage}`);
-        
+        console.log(
+          `✅ Final state: userCredits=${updatedUser.userCredits}, totalCredits=${updatedUser.totalCredits}`
+        );
+        console.log(
+          `✅ Final package: ${updatedUser.userPackage}, packageId=${updatedUser.creditPackage}`
+        );
       } catch (creditError) {
         console.error(
           `❌ Failed to process atomic update for ${customerEmail}:`,
           creditError
         );
-        
+
         // Fallback to individual updates if atomic update fails
         console.log(`🔄 Falling back to individual updates...`);
         await updateUserCreditsByAdmin(customerEmail, packageData.credits);
-        
+
         // Manual package update as fallback
         await User.findOneAndUpdate(
           { email: customerEmail },
@@ -156,21 +161,14 @@ async function handleCheckoutSessionCompleted(session) {
                 paymentDate: new Date(),
                 amount: session.amount_total || 0,
                 status: "completed",
-              }
-            }
+              },
+            },
           }
         );
       }
     }
 
     console.log(`=== CHECKOUT SESSION PROCESSING END ===`);
-  } catch (error) {
-      console.error(
-        `Failed to update user package info for ${customerEmail}:`,
-        updateError
-      );
-      throw updateError; // This is critical, so we should fail the webhook
-    }
   } catch (error) {
     console.error("Error processing checkout session:", error);
     // You might want to log this to an error tracking service
@@ -223,18 +221,20 @@ async function handlePaymentIntentSucceeded(paymentIntent) {
         return;
       }
 
-      console.log(
-        `=== PAYMENT INTENT PROCESSING START ===`
-      );
+      console.log(`=== PAYMENT INTENT PROCESSING START ===`);
       console.log(`Payment Intent ID: ${paymentIntent.id}`);
       console.log(`Customer Email: ${customerEmail}`);
-      console.log(`Package: ${packageData.name}, Credits: ${packageData.credits}`);
+      console.log(
+        `Package: ${packageData.name}, Credits: ${packageData.credits}`
+      );
 
       // Use atomic update for payment intent
       if (packageData.credits && packageData.credits > 0) {
         try {
-          console.log(`🔄 Processing atomic payment intent update for ${customerEmail}...`);
-          
+          console.log(
+            `🔄 Processing atomic payment intent update for ${customerEmail}...`
+          );
+
           const paymentData = {
             paymentIntentId: paymentIntent.id,
             amount: (paymentIntent.amount || 0) / 100, // Convert to dollars
@@ -252,15 +252,21 @@ async function handlePaymentIntentSucceeded(paymentIntent) {
           );
 
           console.log(`✅ Atomic payment intent update completed`);
-          console.log(`✅ Final state: userCredits=${updatedUser.userCredits}, totalCredits=${updatedUser.totalCredits}`);
-          console.log(`✅ Final package: ${updatedUser.userPackage}, packageId=${updatedUser.creditPackage}`);
-          
+          console.log(
+            `✅ Final state: userCredits=${updatedUser.userCredits}, totalCredits=${updatedUser.totalCredits}`
+          );
+          console.log(
+            `✅ Final package: ${updatedUser.userPackage}, packageId=${updatedUser.creditPackage}`
+          );
         } catch (updateError) {
-          console.error(`❌ Failed to process atomic update for payment intent:`, updateError);
-          
+          console.error(
+            `❌ Failed to process atomic update for payment intent:`,
+            updateError
+          );
+
           // Fallback to individual updates
           await updateUserCreditsByAdmin(customerEmail, packageData.credits);
-          
+
           await User.findOneAndUpdate(
             { email: customerEmail },
             {
@@ -277,13 +283,13 @@ async function handlePaymentIntentSucceeded(paymentIntent) {
                   paymentDate: new Date(),
                   amount: paymentIntent.amount || 0,
                   status: "completed",
-                }
-              }
+                },
+              },
             }
           );
         }
       }
-      
+
       console.log(`=== PAYMENT INTENT PROCESSING END ===`);
     } else {
       console.log(

@@ -1,6 +1,6 @@
 import { trashIcon } from "@/helpers/iconsProvider";
 import { getFormattedDate } from "@/helpers/getFormattedDateTime";
-import { Resume, emptyResume, setResume } from "@/store/resumeSlice";
+import { emptyResume, setResume } from "@/store/resumeSlice";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setUserData } from "@/store/userDataSlice";
@@ -13,7 +13,7 @@ const SingleRecentResumeCard = ({
   source,
   setFinished,
 }: {
-  resume: Resume;
+  resume: any;
   source?: string;
   componentRef?: any;
   setFinished?: any;
@@ -40,7 +40,7 @@ const SingleRecentResumeCard = ({
   const handleOnDelete = async () => {
     setDeleting(true);
     setConfirmationModal(false);
-    const updatedResumes = resumes.filter((r: Resume) => r.id !== resume.id);
+    const updatedResumes = resumes.filter((r: any) => r.id !== resume.id);
     if (updatedResumes.length === 0) {
       setFinished(false);
     }
@@ -89,8 +89,8 @@ const SingleRecentResumeCard = ({
             {resume?.state?.resumeType === "resume-basic"
               ? resume?.name
               : resume?.state?.resumeType === "resume-job-title"
-                ? resume?.state?.jobPosition
-                : resume?.state?.jobDescription}
+              ? resume?.state?.jobPosition
+              : resume?.state?.jobDescription}
           </h2>
 
           <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 mb-3">

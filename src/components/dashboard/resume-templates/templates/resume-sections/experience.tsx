@@ -8,11 +8,10 @@ import useDragAndDrop from "@/hooks/useDragAndDrop";
 import useHandler from "@/hooks/useHandler";
 import useSingleJDGenerate from "@/hooks/useSingleJDGenerate";
 import useUpdateAndSave from "@/hooks/useUpdateAndSave";
-import { WorkExperience } from "@/store/resumeSlice";
 
 type Props = {
   heading: string;
-  workExperienceArray: WorkExperience[];
+  workExperienceArray: any[];
   workExperience: any;
   styles: any;
   customStyle?: any;
@@ -85,7 +84,7 @@ const Experience = ({
       ></span>
       {workExperienceArray && workExperienceArray.length > 0 ? (
         <>
-          {workExperienceArray.map((rec: WorkExperience, i: number) => {
+          {workExperienceArray.map((rec: any, i: number) => {
             return (
               <Toolbar
                 key={i}
@@ -211,7 +210,7 @@ const Experience = ({
                         }}
                       />
                     </span>{" "}
-                    {(rec.cityState && rec?.cityState?.length > 0) && ","}
+                    {rec.cityState && rec?.cityState?.length > 0 && ","}
                     <span className="hover:shadow-md hover:bg-gray-100">
                       <EditableField
                         value={rec?.country}

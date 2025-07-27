@@ -69,7 +69,7 @@ const Page = () => {
   let leftSpan: any = [];
 
   const handlePrintClick = useReactToPrint({
-    content: () => cvRef.current,
+    contentRef: cvRef,
     pageStyle: `
     @page {
       size: A4;

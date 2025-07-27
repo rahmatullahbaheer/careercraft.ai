@@ -140,6 +140,15 @@ const ResumeBuilder = () => {
     dispatch(resetResume(resumeData.state));
 
     if (session?.user?.email) {
+      // Check if user has sufficient credits before proceeding
+      if (outOfCredits) {
+        setShowPopup(true);
+        setTimeout(() => {
+          setShowPopup(false);
+        }, 5000);
+        return;
+      }
+
       setResumeGenerated(false);
       dispatch(setState({ name: "resumeLoading", value: true }));
       // dispatch(setQuantifyingExperience(quantifyingExperience));
@@ -217,7 +226,14 @@ const ResumeBuilder = () => {
       });
 
       const res = await response.json();
-
+      console.log("Basic Info Response: ", res);
+      if (res.result == "Insufficient Credits") {
+        setShowPopup(true);
+        // Hide the popup after 3 seconds
+        setTimeout(() => {
+          setShowPopup(false);
+        }, 3000);
+      }
       if (res.success && res.result) {
         let myJSON;
         if (typeof res.result === "object") {
@@ -249,13 +265,37 @@ const ResumeBuilder = () => {
         return { success: true }; // return success response
       } else {
         setShowConfettiRunning(false);
-        showErrorToast("Something Went Wrong");
+        // Check if error is related to credits
+        if (
+          res.message &&
+          (res.message.includes("credit") || res.message.includes("limit"))
+        ) {
+          setShowPopup(true);
+          setTimeout(() => {
+            setShowPopup(false);
+          }, 5000);
+          showErrorToast("Credit Limit Reached!");
+        } else {
+          showErrorToast("Something Went Wrong");
+        }
         return { success: false }; // return error response
       }
     } catch (err) {
       console.log(err);
       setShowConfettiRunning(false);
-      showErrorToast("Something Went Wrong");
+      // Check if error is related to credits
+      if (
+        err.message &&
+        (err.message.includes("credit") || err.message.includes("limit"))
+      ) {
+        setShowPopup(true);
+        setTimeout(() => {
+          setShowPopup(false);
+        }, 5000);
+        showErrorToast("Credit Limit Reached!");
+      } else {
+        showErrorToast("Something Went Wrong");
+      }
       return { success: false }; // return error response
     }
   };
@@ -349,9 +389,20 @@ const ResumeBuilder = () => {
           } else {
             setShowConfettiRunning(false);
             setStreamedJDData("You ran out of credits!");
+            setShowPopup(true);
+            setTimeout(() => {
+              setShowPopup(false);
+            }, 5000);
+            showErrorToast("Credit Limit Reached!");
           }
         } catch (error) {
           console.log(error);
+          setShowConfettiRunning(false);
+          setShowPopup(true);
+          setTimeout(() => {
+            setShowPopup(false);
+          }, 5000);
+          showErrorToast("Error generating work experience");
         }
       }
       setFinished(true);
@@ -597,9 +648,27 @@ const ResumeBuilder = () => {
               </>
             )}
           {showPopup && (
-            <div className="bg-[#18181B] text-red-600 p-2 px-8 rounded-xl absolute top-4 left-1/2 transform -translate-x-1/2">
-              {/* Popup content here */}
-              Credit Limit Reached !
+            <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 bg-red-100 border-2 border-red-500 text-red-700 p-4 px-8 rounded-xl shadow-lg animate-bounce">
+              <div className="flex items-center gap-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                  className="w-5 h-5"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"
+                  />
+                </svg>
+                <span className="font-semibold">Credit Limit Reached!</span>
+              </div>
+              <p className="text-sm mt-1">
+                Please upgrade your plan to continue generating resumes.
+              </p>
             </div>
           )}
         </div>

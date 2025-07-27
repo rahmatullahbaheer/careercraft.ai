@@ -26,8 +26,11 @@ const ChangePasswordPage = () => {
     { regex: /[^A-Za-z0-9]/, text: "One special character" },
   ];
 
-  const isPasswordValid = passwordRequirements.every(req => req.regex.test(newPassword));
-  const doPasswordsMatch = newPassword === confirmPassword && newPassword !== "";
+  const isPasswordValid = passwordRequirements.every((req) =>
+    req.regex.test(newPassword)
+  );
+  const doPasswordsMatch =
+    newPassword === confirmPassword && newPassword !== "";
 
   // Redirect if not authenticated
   React.useEffect(() => {
@@ -38,7 +41,7 @@ const ChangePasswordPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!isPasswordValid) {
       setError("Please ensure your password meets all requirements");
       return;
@@ -103,7 +106,9 @@ const ChangePasswordPage = () => {
             <div className="mx-auto h-12 w-12 bg-purple-100 rounded-full flex items-center justify-center mb-4">
               <Lock className="h-6 w-6 text-purple-600" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-900">Change Password</h2>
+            <h2 className="text-2xl font-bold text-gray-900">
+              Change Password
+            </h2>
             <p className="text-gray-600 mt-2">
               Update your password to keep your account secure
             </p>
@@ -140,7 +145,7 @@ const ChangePasswordPage = () => {
                   type={showCurrentPassword ? "text" : "password"}
                   value={currentPassword}
                   onChange={(e) => setCurrentPassword(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent pr-10"
+                  className="w-full px-3 py-2 border !text-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent pr-10"
                   placeholder="Enter your current password"
                   required
                 />
@@ -168,7 +173,7 @@ const ChangePasswordPage = () => {
                   type={showNewPassword ? "text" : "password"}
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent pr-10"
+                  className="w-full px-3 py-2 !text-black border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent pr-10"
                   placeholder="Enter your new password"
                   required
                 />
@@ -195,7 +200,13 @@ const ChangePasswordPage = () => {
                       ) : (
                         <X className="h-4 w-4 text-red-500 mr-2" />
                       )}
-                      <span className={req.regex.test(newPassword) ? "text-green-700" : "text-red-700"}>
+                      <span
+                        className={
+                          req.regex.test(newPassword)
+                            ? "text-green-700"
+                            : "text-red-700"
+                        }
+                      >
                         {req.text}
                       </span>
                     </div>
@@ -214,7 +225,7 @@ const ChangePasswordPage = () => {
                   type={showConfirmPassword ? "text" : "password"}
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent pr-10"
+                  className="w-full px-3 py-2 !text-black border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent pr-10"
                   placeholder="Confirm your new password"
                   required
                 />
@@ -242,7 +253,9 @@ const ChangePasswordPage = () => {
                   ) : (
                     <>
                       <X className="h-4 w-4 text-red-500 mr-2" />
-                      <span className="text-red-700">Passwords do not match</span>
+                      <span className="text-red-700">
+                        Passwords do not match
+                      </span>
                     </>
                   )}
                 </div>

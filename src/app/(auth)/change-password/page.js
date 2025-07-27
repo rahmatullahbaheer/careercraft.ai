@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -13,7 +13,7 @@ import {
   ArrowLeft,
 } from "lucide-react";
 
-const ChangePasswordPage = () => {
+const ChangePasswordContent = () => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showNewPassword, setShowNewPassword] = useState(false);
@@ -385,6 +385,28 @@ const ChangePasswordPage = () => {
         </div>
       </div>
     </div>
+  );
+};
+
+const ChangePasswordPage = () => {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+          <div className="sm:mx-auto sm:w-full sm:max-w-md">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
+              <h2 className="text-3xl font-bold text-gray-900">Loading...</h2>
+              <p className="text-gray-600">
+                Please wait while we load the page.
+              </p>
+            </div>
+          </div>
+        </div>
+      }
+    >
+      <ChangePasswordContent />
+    </Suspense>
   );
 };
 

@@ -34,8 +34,8 @@ function Services() {
               Write a Winning Resume
             </h3>
             <p className="text-gray-600 mb-3">
-              Creercraft.ai an executive resume that gets attention and highlights your
-              skills with CareerBooster.AI.
+              Creercraft.ai an executive resume that gets attention and
+              highlights your skills with CareerCraft.AI.
             </p>
             <a
               href="#"
@@ -61,7 +61,7 @@ function Services() {
             </a>
           </div>
 
-           <div className="bg-white rounded-lg shadow p-4 hover:shadow-xl transition text-sm">
+          <div className="bg-white rounded-lg shadow p-4 hover:shadow-xl transition text-sm">
             <h3 className="text-base font-semibold mb-1">
               Tailor Each Cover Letter
             </h3>
@@ -76,14 +76,12 @@ function Services() {
               Write Letter
             </a>
             {/* Coming Soon Badge at the Bottom */}
-  <div className="mt-3">
-    <span className="inline-block text-xs font-semibold text-white bg-purple-600 px-2 py-0.5 rounded-full">
-      Coming Soon
-    </span>
-  </div>
+            <div className="mt-3">
+              <span className="inline-block text-xs font-semibold text-white bg-purple-600 px-2 py-0.5 rounded-full">
+                Coming Soon
+              </span>
+            </div>
           </div>
-
-
 
           <div className="bg-white rounded-lg shadow p-4 hover:shadow-xl transition text-sm">
             <h3 className="text-base font-semibold mb-1">
@@ -102,10 +100,10 @@ function Services() {
             </a>
 
             <div className="mt-3">
-    <span className="inline-block text-xs font-semibold text-white bg-purple-600 px-2 py-0.5 rounded-full">
-      Coming Soon
-    </span>
-  </div>
+              <span className="inline-block text-xs font-semibold text-white bg-purple-600 px-2 py-0.5 rounded-full">
+                Coming Soon
+              </span>
+            </div>
           </div>
 
           <div className="bg-white rounded-lg shadow p-4 hover:shadow-xl transition text-sm">
@@ -124,10 +122,10 @@ function Services() {
               Beat the ATS
             </a>
             <div className="mt-3">
-    <span className="inline-block text-xs font-semibold text-white bg-purple-600 px-2 py-0.5 rounded-full">
-      Coming Soon
-    </span>
-  </div>
+              <span className="inline-block text-xs font-semibold text-white bg-purple-600 px-2 py-0.5 rounded-full">
+                Coming Soon
+              </span>
+            </div>
           </div>
 
           <div className="bg-white rounded-lg shadow p-4 hover:shadow-xl transition text-sm">
@@ -147,10 +145,10 @@ function Services() {
             </a>
 
             <div className="mt-3">
-    <span className="inline-block text-xs font-semibold text-white bg-purple-600 px-2 py-0.5 rounded-full">
-      Coming Soon
-    </span>
-  </div>
+              <span className="inline-block text-xs font-semibold text-white bg-purple-600 px-2 py-0.5 rounded-full">
+                Coming Soon
+              </span>
+            </div>
           </div>
         </div>
       </div>

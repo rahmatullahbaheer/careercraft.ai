@@ -116,11 +116,11 @@ const Language = ({
                     className={`text-base font-bold leading-8 hover:shadow-md hover:cursor-text hover:bg-gray-100`}
                   >
                     <EditableField
-                      value={rec?.language}
+                      value={rec?.name}
                       style={{ width: "100%" }}
                       onSave={(value: string) => {
                         handlers.handleSaveOthersDetail(
-                          { language: value },
+                          { name: value },
                           i,
                           "languages"
                         );

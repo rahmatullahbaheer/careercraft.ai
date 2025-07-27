@@ -119,7 +119,7 @@ const UserSchema = new Schema(
     },
     userCredits: {
       type: Number,
-      default: 0,
+      default: 1000,
     },
     totalCredits: {
       type: Number,

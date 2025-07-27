@@ -12,12 +12,12 @@ const PromptBox = ({ title, name, description, onSave, updating, id }) => {
   };
 
   return (
-    <div className="lg:w-[500px] w-full p-4 border border-gray-200 rounded-lg shadow sm:p-6">
+    <div className="lg:w-[500px] w-full p-4 border !text-black border-gray-200 rounded-lg shadow sm:p-6">
       <div className="w-full space-y-4">
-        <h2 className="text-2xl font-semibold text-zinc-700">{title}</h2>
+        <h2 className="text-2xl font-semibold text-zinc-700">{title}111</h2>
 
         <textarea
-          className="w-full p-4 rounded-lg sm:p-6 outline-none border border-gray-300 focus:border-gray-400 resize-none"
+          className="w-full p-4 rounded-lg sm:p-6 outline-none !text-black border border-gray-300 focus:border-gray-400 resize-none"
           rows={12}
           value={prompt}
           placeholder="Write prompt here..."

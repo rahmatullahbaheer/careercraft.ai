@@ -5,8 +5,8 @@ interface Props {
 }
 
 export const metadata: Metadata = {
-  title: "Resumes - CareerBooster.ai",
-  description: "Resumes - CareerBooster.ai | AI Resume Builder | Developed by NausalTech",
+  title: "Resumes - CareerCraft.ai",
+  description: "Resumes - CareerCraft.ai | AI Resume Builder",
 };
 
 export default async function Resumelayout({ children }: Props) {

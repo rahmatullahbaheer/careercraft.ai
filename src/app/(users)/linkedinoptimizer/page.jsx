@@ -14,6 +14,7 @@ const LinkedinOptimizer = () => {
   const [savedContent, setSavedContent] = useState({});
   const [showSaved, setShowSaved] = useState({});
   const [isSaving, setIsSaving] = useState({});
+  const [showCreditPopup, setShowCreditPopup] = useState(false);
 
   const componentRef = useRef(null);
   const { data: session } = useSession();
@@ -37,6 +38,24 @@ const LinkedinOptimizer = () => {
     } catch (error) {
       console.error("Error loading saved content:", error);
     }
+  };
+
+  // Utility function to show credit popup
+  const showCreditLimitPopup = () => {
+    setShowCreditPopup(true);
+    setTimeout(() => {
+      setShowCreditPopup(false);
+    }, 3000);
+  };
+
+  // Utility function to check if error is credit related
+  const isCreditsError = (error) => {
+    return (
+      error.message &&
+      (error.message.includes("credit") ||
+        error.message.includes("limit") ||
+        error.message.includes("Credit"))
+    );
   };
 
   const generators = [
@@ -101,12 +120,10 @@ const LinkedinOptimizer = () => {
 
   const handleHeadlineGenerate = async () => {
     if (!session?.user?.email) {
-      alert("Please sign in to generate content");
       return;
     }
 
     if (!userData) {
-      alert("Please upload your resume first");
       return;
     }
 
@@ -134,6 +151,10 @@ const LinkedinOptimizer = () => {
       });
 
       if (!response.ok) {
+        if (response.status === 402 || response.status === 429) {
+          showCreditLimitPopup();
+          return; // Return early instead of throwing
+        }
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
@@ -149,7 +170,9 @@ const LinkedinOptimizer = () => {
       }
     } catch (error) {
       console.error("Error generating headline:", error);
-      alert("Failed to generate headline. Please try again.");
+      if (isCreditsError(error)) {
+        showCreditLimitPopup();
+      }
     } finally {
       setMsgLoading((prev) => ({ ...prev, 1: false }));
     }
@@ -157,12 +180,10 @@ const LinkedinOptimizer = () => {
 
   const handleAboutGenerate = async () => {
     if (!session?.user?.email) {
-      alert("Please sign in to generate content");
       return;
     }
 
     if (!userData) {
-      alert("Please upload your resume first");
       return;
     }
 
@@ -190,6 +211,10 @@ const LinkedinOptimizer = () => {
       });
 
       if (!response.ok) {
+        if (response.status === 402 || response.status === 429) {
+          showCreditLimitPopup();
+          return; // Return early instead of throwing
+        }
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
@@ -205,7 +230,9 @@ const LinkedinOptimizer = () => {
       }
     } catch (error) {
       console.error("Error generating about section:", error);
-      alert("Failed to generate about section. Please try again.");
+      if (isCreditsError(error)) {
+        showCreditLimitPopup();
+      }
     } finally {
       setMsgLoading((prev) => ({ ...prev, 2: false }));
     }
@@ -213,12 +240,10 @@ const LinkedinOptimizer = () => {
 
   const handleJobDescriptionGenerate = async () => {
     if (!session?.user?.email) {
-      alert("Please sign in to generate content");
       return;
     }
 
     if (!userData) {
-      alert("Please upload your resume first");
       return;
     }
 
@@ -246,6 +271,10 @@ const LinkedinOptimizer = () => {
       });
 
       if (!response.ok) {
+        if (response.status === 402 || response.status === 429) {
+          showCreditLimitPopup();
+          return; // Return early instead of throwing
+        }
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
@@ -261,7 +290,9 @@ const LinkedinOptimizer = () => {
       }
     } catch (error) {
       console.error("Error generating job description:", error);
-      alert("Failed to generate job description. Please try again.");
+      if (isCreditsError(error)) {
+        showCreditLimitPopup();
+      }
     } finally {
       setMsgLoading((prev) => ({ ...prev, 3: false }));
     }
@@ -269,12 +300,10 @@ const LinkedinOptimizer = () => {
 
   const handleKeywordsGenerate = async () => {
     if (!session?.user?.email) {
-      alert("Please sign in to generate content");
       return;
     }
 
     if (!userData) {
-      alert("Please upload your resume first");
       return;
     }
 
@@ -302,6 +331,10 @@ const LinkedinOptimizer = () => {
       });
 
       if (!response.ok) {
+        if (response.status === 402 || response.status === 429) {
+          showCreditLimitPopup();
+          return; // Return early instead of throwing
+        }
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
@@ -317,7 +350,9 @@ const LinkedinOptimizer = () => {
       }
     } catch (error) {
       console.error("Error generating keywords:", error);
-      alert("Failed to generate keywords. Please try again.");
+      if (isCreditsError(error)) {
+        showCreditLimitPopup();
+      }
     } finally {
       setMsgLoading((prev) => ({ ...prev, 4: false }));
     }
@@ -361,7 +396,6 @@ const LinkedinOptimizer = () => {
   const saveToDatabase = async (generatorId) => {
     const content = streamedData[generatorId];
     if (!content) {
-      alert("No content to save");
       return;
     }
 
@@ -398,7 +432,6 @@ const LinkedinOptimizer = () => {
 
       if (response.ok) {
         const result = await response.json();
-        alert("Content saved successfully!");
         // Reload saved content
         await loadSavedContent();
       } else {
@@ -406,7 +439,6 @@ const LinkedinOptimizer = () => {
       }
     } catch (error) {
       console.error("Error saving content:", error);
-      alert("Failed to save content. Please try again.");
     } finally {
       setIsSaving((prev) => ({ ...prev, [generatorId]: false }));
     }
@@ -437,7 +469,6 @@ const LinkedinOptimizer = () => {
       );
 
       if (response.ok) {
-        alert("Content deleted successfully!");
         // Reload saved content
         await loadSavedContent();
       } else {
@@ -445,7 +476,6 @@ const LinkedinOptimizer = () => {
       }
     } catch (error) {
       console.error("Error deleting content:", error);
-      alert("Failed to delete content. Please try again.");
     }
   };
 
@@ -729,6 +759,32 @@ const LinkedinOptimizer = () => {
           ))}
         </div>
       </div>
+
+      {/* Credit Limit Popup */}
+      {showCreditPopup && (
+        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 bg-red-100 border-2 border-red-500 text-red-700 p-4 px-8 rounded-xl shadow-lg animate-bounce">
+          <div className="flex items-center gap-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+              stroke="currentColor"
+              className="w-5 h-5"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"
+              />
+            </svg>
+            <span className="font-semibold">Credit Limit Reached!</span>
+          </div>
+          <p className="text-sm mt-1">
+            Please upgrade your plan to continue generating LinkedIn content.
+          </p>
+        </div>
+      )}
     </div>
   );
 };
