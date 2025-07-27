@@ -12,6 +12,7 @@ import {
   User,
   UserCircle,
   LogOut,
+  Lock,
 } from "lucide-react";
 
 const selectionMenu = [
@@ -21,6 +22,7 @@ const selectionMenu = [
   { label: "Packages", icon: Package, path: "/packages" },
   { label: "Users", icon: Users, path: "/users" },
   { label: "Profile", icon: UserCircle, path: "/admin-profile" },
+  { label: "Change Password", icon: Lock, path: "/change-password-admin" },
   { label: "Logout", icon: LogOut, path: "/logout" },
 ];
 

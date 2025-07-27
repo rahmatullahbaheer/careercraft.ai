@@ -13,6 +13,7 @@ import {
   LogOut,
   CreditCard,
   Mail,
+  Lock,
 } from "lucide-react";
 
 const selectionMenu = [
@@ -25,6 +26,7 @@ const selectionMenu = [
   },
   { label: "Billing Details", icon: CreditCard, path: "/billing" },
   { label: "Profile", icon: User, path: "/profile" },
+  { label: "Change Password", icon: Lock, path: "/change-password-user" },
   { label: "Logout", icon: LogOut, path: "/logout" },
 ];
 
