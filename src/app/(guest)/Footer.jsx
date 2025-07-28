@@ -29,10 +29,10 @@ function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-lg font-semibold text-black mb-3 font-ovo">
+            <h3 className="text-lg font-semibold !text-black mb-3 font-ovo">
               Quick Links
             </h3>
-            <ul className="space-y-2 text-sm">
+            <ul className="space-y-2 text-sm !text-black">
               <li>
                 <a
                   href="Top"
@@ -78,10 +78,10 @@ function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h3 className="text-lg font-semibold text-black mb-3 font-ovo">
+            <h3 className="text-lg font-semibold !text-black mb-3 font-ovo">
               Contact
             </h3>
-            <ul className="text-sm space-y-2 text-black">
+            <ul className="text-sm space-y-2 !text-black">
               <li>
                 Email:{" "}
                 <a

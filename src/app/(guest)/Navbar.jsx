@@ -38,15 +38,16 @@ function Navbar() {
           className="hidden md:flex items-center gap-6 lg:gap-8 px-12 
         py-3  text-black  "
         >
-          <li className="hover-bg-purple">
+          <li className="hover:bg-purple-400 px-3 py-2 rounded">
             <Link
-              className="font-Ovo text-gray-900  relative after:block after:h-[2px] after:w-0 after:bg-purple-600  after:transition-all after:duration-300 hover:after:w-full "
               href="#top"
+              className="font-Ovo text-gray-900 relative after:block after:h-[2px] after:w-0 after:bg-purple-600 after:transition-all after:duration-300 hover:after:w-full"
             >
               Home
             </Link>
           </li>
-          <li className="hover-bg-purple">
+
+          <li className="hover:bg-purple-400 px-3 py-2 rounded">
             <Link
               className="font-Ovo text-gray-900 relative after:block after:h-[2px] after:w-0 after:bg-purple-600 after:transition-all after:duration-300 hover:after:w-full"
               href="#About"
@@ -54,15 +55,15 @@ function Navbar() {
               About me
             </Link>
           </li>
-          <li className="hover-bg-purple">
+          <li className="hover:bg-purple-400 px-3 py-2 rounded">
             <Link
-              className="font-Ovo text-gray-900 relative after:block after:h-[2px] after:w-0 after:bg-purple-600 after:transition-all after:duration-300 hover:after:w-full"
+              className=" font-Ovo text-gray-900 relative after:block after:h-[2px] after:w-0 after:bg-purple-600 after:transition-all after:duration-300 hover:after:w-full"
               href="#services"
             >
               Services
             </Link>
           </li>
-          <li className="hover-bg-purple">
+          <li className="hover:bg-purple-400 px-3 py-2 rounded">
             <Link
               className="font-Ovo text-gray-900 relative after:block after:h-[2px] after:w-0 after:bg-purple-600 after:transition-all after:duration-300 hover:after:w-full"
               href="#Fqs"
@@ -70,7 +71,7 @@ function Navbar() {
               FQS
             </Link>
           </li>
-          <li className="hover-bg-purple">
+          <li className="hover:bg-purple-400 px-3 py-2 rounded">
             <Link
               className="font-Ovo text-gray-900 relative after:block after:h-[2px] after:w-0 after:bg-purple-600 after:transition-all after:duration-300 hover:after:w-full"
               href="#Price"
@@ -104,7 +105,7 @@ function Navbar() {
         {/*...................... MOBILE MENU............. */}
         <ul
           ref={SideMenuRef}
-          className="flex md:hidden flex-col gap-6 py-20 px-10 fixed -right-64 top-0 bottom-0 w-64 z-50 h-screen bg-white"
+          className="flex md:hidden flex-col gap-6 py-20 px-10 fixed -right-64 top-0 bottom-0 w-64 z-50 h-screen bg-purple-300"
         >
           <div className="absolute right-6 top-6" onClick={closeMenu}>
             <Image

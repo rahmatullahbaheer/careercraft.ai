@@ -251,17 +251,7 @@ function Price() {
                   />
                   <span className="text-sm">Quick Checkout</span>
                 </label>
-                {/* <label className="flex items-center">
-                  <input
-                    type="radio"
-                    name="paymentMethod"
-                    value="intent"
-                    checked={paymentMethod === "intent"}
-                    onChange={(e) => setPaymentMethod(e.target.value)}
-                    className="mr-2"
-                  />
-                  <span className="text-sm">Card Payment</span>
-                </label> */}
+               
               </div>
             </div>
           )}
@@ -328,7 +318,7 @@ function Price() {
                         Craft Winning Cover Letters
                       </li>
                       <li className="flex items-start">
-                        <span className="text-purple-600 mr-2">✓</span>
+                        
                         Emails Assistant
                       </li>
                       <li className="flex items-start">
