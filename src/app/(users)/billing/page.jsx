@@ -166,38 +166,6 @@ const page = () => {
                 Usage Statistics
               </h2>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {/* <div>
-                  <label className="text-sm font-semibold text-gray-900 block mb-1">
-                    Generated Resumes
-                  </label>
-                  <input
-                    type="text"
-                    value={billingData.generatedResumes}
-                    readOnly
-                    className="w-full p-3 bg-green-50 rounded-lg text-green-800 border border-green-200 cursor-not-allowed font-semibold"
-                    style={{
-                      boxShadow:
-                        "0 3px 6px rgba(0, 0, 0, 0.1), 3px 0 6px rgba(0, 0, 0, 0.05), -3px 0 6px rgba(0, 0, 0, 0.05)",
-                    }}
-                  />
-                </div>
-
-                <div>
-                  <label className="text-sm font-semibold text-gray-900 block mb-1">
-                    Generated Cover Letters
-                  </label>
-                  <input
-                    type="text"
-                    value={billingData.generatedCoverLetters}
-                    readOnly
-                    className="w-full p-3 bg-blue-50 rounded-lg text-blue-800 border border-blue-200 cursor-not-allowed font-semibold"
-                    style={{
-                      boxShadow:
-                        "0 3px 6px rgba(0, 0, 0, 0.1), 3px 0 6px rgba(0, 0, 0, 0.05), -3px 0 6px rgba(0, 0, 0, 0.05)",
-                    }}
-                  />
-                </div> */}
-
                 <div>
                   <label className="text-sm font-semibold text-gray-900 block mb-1">
                     Remaining Credits
