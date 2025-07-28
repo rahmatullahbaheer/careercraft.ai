@@ -47,7 +47,7 @@ function Navbar() {
             </Link>
           </li>
 
-          <li className="hover-bg-purple">
+          <li className="hover:bg-purple-400 px-3 py-2 rounded">
             <Link
               className="font-Ovo text-gray-900 relative after:block after:h-[2px] after:w-0 after:bg-purple-600 after:transition-all after:duration-300 hover:after:w-full"
               href="#About"
@@ -55,15 +55,15 @@ function Navbar() {
               About me
             </Link>
           </li>
-          <li className="hover-bg-purple">
+          <li className="hover:bg-purple-400 px-3 py-2 rounded">
             <Link
-              className="font-Ovo text-gray-900 relative after:block after:h-[2px] after:w-0 after:bg-purple-600 after:transition-all after:duration-300 hover:after:w-full"
+              className=" font-Ovo text-gray-900 relative after:block after:h-[2px] after:w-0 after:bg-purple-600 after:transition-all after:duration-300 hover:after:w-full"
               href="#services"
             >
               Services
             </Link>
           </li>
-          <li className="hover-bg-purple">
+          <li className="hover:bg-purple-400 px-3 py-2 rounded">
             <Link
               className="font-Ovo text-gray-900 relative after:block after:h-[2px] after:w-0 after:bg-purple-600 after:transition-all after:duration-300 hover:after:w-full"
               href="#Fqs"
@@ -71,7 +71,7 @@ function Navbar() {
               FQS
             </Link>
           </li>
-          <li className="hover-bg-purple">
+          <li className="hover:bg-purple-400 px-3 py-2 rounded">
             <Link
               className="font-Ovo text-gray-900 relative after:block after:h-[2px] after:w-0 after:bg-purple-600 after:transition-all after:duration-300 hover:after:w-full"
               href="#Price"
